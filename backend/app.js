@@ -18,6 +18,8 @@ const adminRoutes=require('./src/routes/adminRoutes');
 const Api=require('./src/routes/apiRoutes');
 const Department = require('./src/models/department');
 const Designation = require('./src/models/designation');
+const EmployeeCompany = require('./src/models/empCompany');
+const EmployeeBank = require('./src/models/empBank');
 
 const version1='v1';
 
@@ -61,10 +63,26 @@ Manager.belongsTo(User,{foreignKey: 'createId'})
 User.hasMany(Department,{foreignKey:'userId'});
 Department.belongsTo(User,{foreignKey:'userId'});
 
-
 Department.hasMany(Designation);
 Designation.belongsTo(Department);
 
+Department.hasMany(EmployeeCompany);
+EmployeeCompany.belongsTo(Department);
+
+Designation.hasMany(EmployeeCompany);
+EmployeeCompany.belongsTo(Designation);
+
+User.hasMany(Employee,{foreignKey:'userId'});
+Employee.belongsTo(User,{foreignKey:'userId'});
+
+Employee.hasOne(EmployeeCompany);
+EmployeeCompany.belongsTo(Employee);
+
+Employee.hasOne(EmployeeBank);
+EmployeeBank.belongsTo(Employee)
+
+User.hasMany(Employee,{foreignKey:'createId'})
+User.belongsTo(Employee,{foreignKey:'createId'})
 
 // My sql database create
 sequelize
@@ -76,6 +94,5 @@ sequelize
   console.error('Error synchronizing models:', error);
 });
 
- 
 
 module.exports=app;

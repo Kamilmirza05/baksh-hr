@@ -87,7 +87,6 @@ const editManager=async (photo,name,phone,email,password,status,module,userId)=>
 }
 
 
-
 const getManagers=async (offset=0,limit=10,page=1)=>{
     const response=await Manager.findAll({where:{deletedAt:null}},{offset: limit*(page-1),limit: limit*page},{include:User});
     return response;
