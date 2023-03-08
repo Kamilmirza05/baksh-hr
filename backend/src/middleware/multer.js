@@ -12,6 +12,7 @@ const imageFilter = function(req, file, cb) {
 
 const manager = multer.diskStorage({
     destination: function(req, file, cb) {
+      console.log(file?.fieldname)
       if(file?.fieldname==='employeePhoto'){
         cb(null, './uploads/employees');
 

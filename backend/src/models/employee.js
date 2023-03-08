@@ -9,6 +9,7 @@ const Employee = sequelize.define('employee', {
   },
   email:{
     type:DataTypes.STRING,
+    unique:true,
     allowNull:false,
   },
   name:{
@@ -24,11 +25,13 @@ const Employee = sequelize.define('employee', {
     allowNull:false,
   },
   gender:{
-    type:DataTypes.BOOLEAN,
+    type:DataTypes.STRING,
     allowNull:false
   },
   phoneOne:{
     type:DataTypes.STRING,
+    unique:true,
+
     allowNull:false
   },
   phoneTwo:{

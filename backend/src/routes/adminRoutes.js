@@ -7,7 +7,7 @@ const { multerUpload } = require('../middleware/multer');
 const isAuth=require('../middleware/authorize')
 const EmployeeController=require('../controllers/employee.controller')
 
-const {validRole,validUser,validManager, validEditManager}=require('../validations/validations');
+const {validRole,validUser,validManager, validEditManager, validEmployee}=require('../validations/validations');
 
 // Admin Controller
 router.post('/',adminController.createAdmin);
@@ -35,7 +35,12 @@ router.post('/department',isAuth,department.createDepartment);
 
 // Create Employee
 
-router.post('/create-employee',isAuth,multerUpload.single('employeePhoto'),EmployeeController.createEmployee)
+router.post('/create-employee',isAuth,multerUpload.single('employeePhoto'),validEmployee,EmployeeController.createEmployee)
+
+
+// Edit Employee
+
+router.put('/edit-employee',multerUpload.single('employeePhoto'),EmployeeController.editEmployee)
 
 
 module.exports=router;
