@@ -1,7 +1,7 @@
 import { List, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { Container, ListItem, ListItemButton } from '@mui/material';
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useState } from 'react'
 import Dashboard from '../../images/dashboard.svg';
 import attendance from '../../images/attendance.svg';
 import leave from '../../images/leaves.svg';
@@ -23,12 +23,13 @@ import DownMenu from '../ui/downMenu';
 const useStyles = makeStyles({
     container:{
         backgroundColor:'#FCFCFC',
-        width:'20%',
+        width:'20vw',
         height:'100vh',
         overflow:'auto',    
     },
     logoHeading:{
         fontSize:'2rem',
+        marginTop:'2rem',
         // display:'flex',
         // flexDirection:'row',
         // justifyContent:'center',
@@ -70,6 +71,9 @@ const useStyles = makeStyles({
     menuListbtn:{
         borderRadius:'10px',
     },
+    activeList:{
+        backgroundColor:'#2C2F32'
+    },
     defaultIcon:{
         width:'1.2rem',
     }
@@ -78,6 +82,7 @@ const useStyles = makeStyles({
 
 const Sidebar = () => {
     const classes=useStyles();
+    const [tab,settab]=useState('');
   return (
     <Box className={classes.container}>
        <Box className={classes.logoHeading}>
@@ -91,7 +96,7 @@ const Sidebar = () => {
        <Box className={classes.listContainer} component='div'>
          <List className={classes.menuList}>
            <DownMenu label={"Dashboard"} icon={Dashboard} classes={classes}/>
-           <DownMenu label={"Employees"} icon={employee} classes={classes} downArrow={downArrow}/>
+           <DownMenu label={"Employees"} droplabel={[{label:"Add Employee"},{label:"Manage Employee"}]} icon={employee} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
            <DownMenu label={"Attendance"} icon={attendance} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Loan Management"} icon={loan} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Leaves"} icon={leave} classes={classes} downArrow={downArrow}/>
@@ -100,8 +105,6 @@ const Sidebar = () => {
            <DownMenu label={"Holidays"} icon={holiday} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Managers"} icon={manager} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Setup"} icon={setup} classes={classes}/>
-
-
          </List>
        </Box>
     </Box>
