@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@mui/material'
 const useStyles = makeStyles((theme) => ({
   root: {
+    fontFamily: 'Poppins , sans-serif',
+
     '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
       borderColor: '#E1E1E1',
           borderRadius: '10px',
@@ -13,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '10px',
         padding:'10px',
         height:'50px',
-
       },
     },
     '&:hover fieldset': {
@@ -32,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const InputText = ({label}) => {
+const InputText = ({label,name,changeHandler}) => {
   const classes = useStyles();
   return (
-<TextField size='small' className={`${classes.root}`}  id="outlined-basic" label={label} variant="outlined" />
+    <TextField size='small' className={`${classes.root}`}  id="outlined-basic" label={label} variant="outlined" onChange={changeHandler} name={name} />
   )
 }
 

@@ -1,10 +1,18 @@
+import { makeStyles } from '@material-ui/core';
 import { Button } from '@mui/material';
 import React from 'react'
 
-
-const ButtonUi= ({label='sample'}) => {
+const useStyles=makeStyles({
+  btn:{
+    padding:10,
+    color:'white',
+    backgroundColor:'#C49A50 !important'
+  }
+})
+const ButtonUi= ({label='sample',clickHandler}) => {
+  const classes=useStyles();
   return (
-    <Button className='!bg-primary' variant="contained" color='primary'>{label} </Button>
+    <Button className={classes.btn} variant="contained" onClick={clickHandler}>{label} </Button>
   )
 }
 

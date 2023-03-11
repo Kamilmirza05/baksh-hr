@@ -12,7 +12,7 @@ const useStyles=makeStyles({
         display:'flex',
         flexDirection:'row',
         justifyContent:'space-between',
-        width:'80vw'
+        width:'75vw'
     },
     pageName:{
         fontFamily: 'Poppins',

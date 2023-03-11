@@ -1,4 +1,4 @@
-import { FormControl, OutlinedInput } from '@mui/material'
+import { Box, FormControl, OutlinedInput, Typography } from '@mui/material'
 import React from 'react'
 import { makeStyles } from '@material-ui/core';
 
@@ -26,18 +26,18 @@ const useStyles=makeStyles({
     width:'100%'
 },
 })
-const MultiLineText = () => {
+const MultiLineText = ({label,placeholder}) => {
     const classOwn=useStyles();
   return (
     <FormControl >
-  <OutlinedInput placeholder="Add Local Address" 
-          multiline
-          rows={4}
-          className={classOwn.root}
-          defaultValue="Local Address"
-  />
-  
-</FormControl>
+      <Typography component='h4' className={classOwn.label}>{label}</Typography>
+      <OutlinedInput placeholder={placeholder} 
+              multiline
+              rows={4}
+              className={classOwn.root}
+              defaultValue=""
+      />
+    </FormControl>
   )
 }
 

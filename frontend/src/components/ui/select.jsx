@@ -18,12 +18,7 @@ const MenuProps = {
   },
 };
 
-const names = [
-'male',
-'female',
-'other'
 
-];
 
 
 
@@ -79,7 +74,7 @@ function getStyles(name,personName, theme) {
   };
 }
 
-export default function SelectUi({title}) {
+export default function SelectUi({title,data}) {
   const classes=useStyles();
 
   const theme = useTheme();
@@ -110,7 +105,7 @@ export default function SelectUi({title}) {
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}
         >
-           {names.map((name) => (
+           {data.map((name) => (
             <MenuItem
               key={name}
               value={name}

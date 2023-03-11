@@ -5,13 +5,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from 'react-redux'
+import  store  from './redux/store'
+import { CookiesProvider } from 'react-cookie';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+
   <React.StrictMode>
-  <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <App />
-  </LocalizationProvider>
+   <CookiesProvider>
+      <Provider store={store}>
+            <BrowserRouter>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <App />
+                </LocalizationProvider>
+            </BrowserRouter>
+      </Provider>
+    </CookiesProvider>
   </React.StrictMode>
 );
 

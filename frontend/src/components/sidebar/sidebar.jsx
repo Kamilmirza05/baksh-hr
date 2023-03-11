@@ -23,9 +23,11 @@ import DownMenu from '../ui/downMenu';
 const useStyles = makeStyles({
     container:{
         backgroundColor:'#FCFCFC',
-        width:'20vw',
-        height:'100vh',
-        overflow:'auto',    
+        width:'100%',
+        height:'100%',
+        overflow:'auto',
+        position:'fixed',
+        width:"25vw"    
     },
     logoHeading:{
         fontSize:'2rem',
@@ -52,7 +54,7 @@ const useStyles = makeStyles({
     listContainer:{
         display:'flex',
         flexDirection:'row',
-        justifyContent:'center'
+        justifyContent:'center',
     },
     list:{
         cursor:'pointer',
