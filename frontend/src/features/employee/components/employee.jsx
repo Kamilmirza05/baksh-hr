@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../../components/header/header'
 import Sidebar from '../../../components/sidebar/sidebar'
 import { makeStyles } from '@material-ui/core';
 import { Box } from '@mui/system';
 import EmployeLeft from './employeLeft';
 import EmployeeRight from './employeeRight';
-
+import { useDispatch } from 'react-redux';
+import EmployeeThunk from '../../../redux/thunk/employeeThunk';
+import { useCookies } from 'react-cookie';
 const useStyles=makeStyles({
   mainContainer:{
     display:'flex',
@@ -32,7 +34,14 @@ const useStyles=makeStyles({
 })
 
 const Employee = () => {
+  const [cookies] = useCookies(['token']);
   const classes=useStyles();
+
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    const token=cookies.token;
+    dispatch(EmployeeThunk(token));
+  },[])
 
   return (
     <Box component='div' className={classes.mainContainer}>

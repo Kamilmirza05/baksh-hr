@@ -2,11 +2,13 @@ import { Box, makeStyles } from '@material-ui/core'
 import { Label } from '@mui/icons-material'
 import { Input } from '@mui/material'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import file from '../../images/file.svg'
 
 const useStyles=makeStyles({
     container:{
-        display:'flex'
+        display:'flex',
+        cursor:'pointer'
     },
     file:{
         width:'133px',
@@ -33,15 +35,30 @@ const useStyles=makeStyles({
         letterSpacing: '-0.02em'
     }
 })
-const FileInput = () => {
+const FileInput = ({setState,state}) => {
+    const dispatch=useDispatch();
     const classes=useStyles();
+
+    const HandleChange=(e)=>{
+        dispatch(setState(e.target.files[0]));
+    }
+    console.log(state)
   return (
     <Box component='div' className={classes.container}>
-       <input type='file' hidden  name="profile" id='profile'/>
+       <input type='file' hidden onChange={HandleChange}   name="profile" id='profile'/>
        <label htmlFor='profile'>
         <Box component='div' className={classes.file}>
-            <Box component='img' src={file} className={classes.fileLogo}/>
-            <p className={classes.filedescription}>Drop a file or browse a file to upload</p>
+             {state ?            
+                 <Box component='img' src={URL.createObjectURL(state)} className={classes.fileLogo}/>
+                 :
+                 <>
+                    <Box component='img' src={file} className={classes.fileLogo}/>
+                    <p className={classes.filedescription}>Drop a file or browse a file to upload</p>
+                </>
+             }
+
+
+             
         </Box>
        </label>
         <Box component='div' className={classes.container}>

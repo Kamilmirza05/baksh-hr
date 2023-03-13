@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core'
 import InputText from '../ui/input'
 import InputNumber from '../../../components/ui/inputNumber';
 import SelectUi from '../../../components/ui/select';
+import SelectLocalUi from '../../../components/ui/selectLocal';
 
 
 const BankName=[
@@ -51,7 +52,7 @@ const EmployeeFinancial = ({parentClass}) => {
        <Box component='h1' className={classes.title}>Financial Details</Box>
        <Box component='div' className={classes.fields}>
            {/* <InputText placeholder={'Add Account Holder Name'} title={'Account Holder Name'}/> */} 
-            <SelectUi    title={'Select Salary Type'} data={BankName} classes={classes}/>
+            <SelectLocalUi    title={'Select Salary Type'} data={BankName} classes={classes}/>
             <InputNumber label={'Salary'} classes={classes} placeholder={'Add Salary'} />
        </Box>
     </Box>

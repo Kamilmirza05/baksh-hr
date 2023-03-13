@@ -11,7 +11,7 @@ const LoginThunk=(data,navigate,setCookie)=>{
                 const response= await axios.post(publicApi+'/login',data,{
                     headers: {"Content-Type": "application/json"},
                 });
-                // navigate('/')
+                navigate('/')
                 var tomorrow = new Date();
                 tomorrow.setDate(tomorrow.getDate()+1);
                 setCookie('userId',response?.data?.response?.data.userId,{

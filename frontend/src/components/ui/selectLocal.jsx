@@ -75,7 +75,7 @@ function getStyles(name,personName, theme) {
   };
 }
 
-export default function SelectUi({title,data=['ahmad','ali'],setState,state}) {
+export default function SelectLocalUi({title,data,setState}) {
   const classes=useStyles();
   const dispatch=useDispatch();
   const theme = useTheme();
@@ -86,14 +86,10 @@ export default function SelectUi({title,data=['ahmad','ali'],setState,state}) {
       target: { value },
     } = event;
   
-      const id=child.props.id;
-      dispatch(setState(id))
-
-
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+        setPersonName(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+        );
   };
 
   return (
@@ -113,11 +109,10 @@ export default function SelectUi({title,data=['ahmad','ali'],setState,state}) {
            {data.map((list,id) => (
             <MenuItem
               key={id}
-              value={list.label}
-              id={list.id}
-              style={getStyles(list.label, personName, theme)}
+              value={list}
+              style={getStyles(list, personName, theme)}
             >
-              {list.label}
+              {list}
             </MenuItem>
           ))}
         </Select>

@@ -15,7 +15,6 @@ const AlertApp = () => {
     const classes=useStyles();
     const msg=useSelector(state=>state.app.msg);
     const error=useSelector(state=>state.app.error);
-    console.log(msg,error)
 
   return (
     <>

@@ -11,6 +11,7 @@ import InputNumber from '../../../components/ui/inputNumber';
 import EmployeeBank from './employeeBank';
 import { useDispatch,useSelector } from 'react-redux';
 import { employeeAction } from '../../../redux/slice/employeeSlice';
+import SelectLocalUi from '../../../components/ui/selectLocal';
 
 const useStyles=makeStyles({
     container:{
@@ -71,7 +72,11 @@ const useStyles=makeStyles({
 })
 const EmployeLeft = () => {
   const dispatch=useDispatch();
-  const employee=useSelector(state=>state.emp.employeeData)
+  const employee=useSelector(state=>state.emp.employeeData);
+  const name=useSelector(state=>state.emp.name);
+  const fatherName=useSelector(state=>state.emp.fatherName);
+  const profilePic=useSelector(state=>state.emp.profilePic);
+
   console.log(employee)
   const classes=useStyles();
   const Country=[
@@ -84,9 +89,8 @@ const EmployeLeft = () => {
     'other'
   ]
 
-  const dataHandler=()=>{
 
-  }
+
   return (
     <Box className={classes.container} component='div'>
       <Box component='div'>
@@ -95,12 +99,12 @@ const EmployeLeft = () => {
         </Typography>
       </Box>
       <Box className={classes.innerContainer} component='div'>
-        <FileInput/>
-        <InputText placeholder={'Add Full name'} title={'name'}  changeHandler={dataHandler}/>
-        <InputText placeholder={'Add Father Name'} title={'Father Name'} changeHandler={dataHandler}/>
+        <FileInput state={profilePic} setState={employeeAction.profileAction}/>
+        <InputText placeholder={'Add Full name'} title={'name'} setState={employeeAction.addNameAction} state={name}/>
+        <InputText placeholder={'Add Father Name'} title={'Father Name'}  setState={employeeAction.fatherNameAction} state={fatherName}/>
         <Box className={classes.flexRow}>
-            <DatePickterUi title={'Date of Birth'} classes={classes}/>
-            <SelectUi title={'Gender'} data={Country} classes={classes}/>
+            <DatePickterUi title={'Date of Birth'} setState={employeeAction.dobAction} classes={classes}/>
+            <SelectLocalUi title={'Gender'} data={Country} setState={employeeAction.genderAction} classes={classes}/>
         </Box>
         <Box className={classes.flexRow}>
             <InputNumber label={'Phone 1'} classes={classes}/>

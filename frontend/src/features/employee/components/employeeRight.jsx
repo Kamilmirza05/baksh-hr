@@ -1,7 +1,7 @@
 import { Input, makeStyles } from '@material-ui/core'
 import { Box, Typography } from '@mui/material'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import React from 'react'
+import React, { useEffect } from 'react'
 import FileInput from '../../../components/ui/fileInput'
 import InputText from '../ui/input'
 import DatePickterUi from '../../../components/ui/datePickter';
@@ -11,6 +11,11 @@ import InputNumber from '../../../components/ui/inputNumber';
 import EmployeeBank from './employeeBank';
 import EmployeeFinancial from './employeeFinanicial';
 import EmergencyDetail from './emergencyDetail';
+import { useDispatch, useSelector } from 'react-redux';
+import { employeeAction } from '../../../redux/slice/employeeSlice';
+import axios from 'axios';
+import { adminApi } from '../../../axios/axiosData';
+import SelectLocalUi from '../../../components/ui/selectLocal';
 
 
 const useStyles=makeStyles({
@@ -71,8 +76,35 @@ const useStyles=makeStyles({
     },
 
 })
+
+const status=[
+  'pending',
+  'active',
+  'inactive'
+]
 const EmployeRight = () => {
+  const dispatch=useDispatch();
   const classes=useStyles();
+  const departmentId=useSelector(state=>state.emp.departmentId);
+  const departments=useSelector(state=>state.emp.departments);
+  const designations=useSelector(state=>state.emp.designations);
+  const dateofJoining=useSelector(state=>state.emp.dateofJoining);
+
+
+  useEffect(()=>{
+    console.log('hit...')
+    const getDesignation=async ()=>{
+      const response=await axios.get(adminApi+`/designation/${departmentId}`)
+      dispatch(employeeAction.deisgnationsAction(response?.data?.designations))
+      console.log(response)
+    }
+
+    const timerOne=setTimeout(getDesignation,1000);
+    return ()=>{
+      clearTimeout(timerOne)
+    }
+  },[departmentId])
+
   const Country=[
     'pakistan',
     'india'
@@ -82,6 +114,16 @@ const EmployeRight = () => {
     'female',
     'other'
   ]
+
+  useEffect(()=>{
+
+  },[])
+
+
+  const deparmentHandler=(e)=>{
+   
+  }
+
   return (
     <Box className={classes.container} component='div'>
       <Box component='div'>
@@ -91,17 +133,18 @@ const EmployeRight = () => {
       </Box>
       <Box className={classes.innerContainer} component='div'>
         <InputText placeholder={'Add Employee ID'} title={'Employee Id'}/>
-        <SelectUi title={'Department'} data={[]} classes={classes}/>
-        <SelectUi title={'Designation'} data={[]} classes={classes}/>
+        <SelectUi title={'Department'}  data={departments} handleChange={deparmentHandler} setState={employeeAction.departmentAction} state={departmentId} classes={classes} use={'fetch'}/>
+        <SelectUi title={'Designation'} data={designations} setState={employeeAction.designationAction} classes={classes}/>
         <Box className={classes.flexRow}>
-            <DatePickterUi title={'Date of Joining'} classes={classes}/>
-            <SelectUi title={'Status'} data={[]} classes={classes}/>
+        {/* departments */}
+            <DatePickterUi title={'Date of Joining'} setState={employeeAction.dateofJoiningAction} state={dateofJoining} classes={classes}/>
+            <SelectLocalUi title={'Status'} handleChange={employeeAction.statusAction} data={status} classes={classes}/>
         </Box>
 
-        <Box className={classes.flexRow}    >
+        {/* <Box className={classes.flexRow}    >
             <SelectUi title={'Nationality'} data={Gender} classes={classes}/>
             <SelectUi title={'Marital Status'} data={Country} classes={classes}/>
-        </Box>
+        </Box> */}
         <Box component='hr' className={classes.border}></Box>
         <EmployeeFinancial/>
         <Box component='hr' className={classes.border}></Box>

@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         height:'100%',
         overflow:'auto',
         position:'fixed',
-        width:"25vw"    
+        width:"22vw"    
     },
     logoHeading:{
         fontSize:'2rem',
