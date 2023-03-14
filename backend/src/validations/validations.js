@@ -19,23 +19,22 @@ exports.validUser=[
   body('email')
   .notEmpty()
   .isString()
-  .isLength({ min: 3})
-  .custom(value => {
-    console.log(value)
-    return User.findOne({where:{email:value}})
-    .then(user => {
-      if (user) {
-        return Promise.reject('E-mail already exist');
-      }
-    });
-  }),
+  .isLength({ min: 3}),
+
   body('password').notEmpty().isString().isLength({ min: 3}),
   (req,res,next)=>{
-      console.log(req.body)
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
+
+      User.findOne({where:{email:value}})
+      .then(user => {
+        if (user) {
+          console.log('ht,,,')
+          return res.status(200).json({msg:'E-mail already exist',flag:false});
+        }
+      });
       next();
   }
 ]
@@ -64,7 +63,7 @@ exports.validManager=[
       return User.findOne({where:{email:email}})
       .then(user => {
         if (user) {
-          return Promise.reject('E-mail already exist');
+          return res.json('E-mail already exist');
         }
       });
     })
@@ -137,10 +136,10 @@ exports.validLogin=[
       return User.findOne({where:{email:email}})
       .then(user => {
         if (!user) {
-          return Promise.reject('E-mail Not Exist');
+          throw new Error('E-mail Not Exist');
         }
         if(user.status==='inactive'){
-          return Promise.reject('Your account is blocked');
+          throw new Error('Your account is blocked');
         }
       });
     })

@@ -14,5 +14,22 @@ const create=async (req,department,designation)=>{
     return respone
 }
 
+const get=async ()=>{
+    const deparment= await Department.findAll({
+        attributes: ['id', ['department', 'label']] 
+    });        
+    return deparment;
+}
 
-module.exports={create}
+const getDesignation=async (id)=>{
+    const designation=await Designation.findAll({
+        attributes: ['id', ['designation', 'label']] ,
+        where:{
+            departmentId:id
+        }
+    });
+
+    return designation;
+}
+
+module.exports={create,get,getDesignation}

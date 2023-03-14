@@ -76,8 +76,6 @@ const EmployeLeft = () => {
   const name=useSelector(state=>state.emp.name);
   const fatherName=useSelector(state=>state.emp.fatherName);
   const profilePic=useSelector(state=>state.emp.profilePic);
-
-  console.log(employee)
   const classes=useStyles();
   const Country=[
     'pakistan',

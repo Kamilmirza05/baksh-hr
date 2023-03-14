@@ -1,7 +1,9 @@
 import { Box, makeStyles } from '@material-ui/core';
 import { Input, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux';
+import debounce from 'lodash.debounce';
+
 
 const useStyles=makeStyles({
     'input':{
@@ -29,21 +31,24 @@ const useStyles=makeStyles({
         width:'100%'
     }
 })
+
 const InputText = ({placeholder,title,setState,state}) => {
   const classes=useStyles();
   const dispatch=useDispatch();
-  const ref=React.createRef();
 
   const handleChange=(e)=>{
     console.log('hit...')
-    dispatch(setState(e.target.value));
+    console.log(e.target.value)
+    // dispatch(setState(e.target.value));
   }
 
-  return (<Box className={classes.container}  component='div'>
+  const debouncedCallback = useCallback(debounce(handleChange, 300));
+
+  return (<Box className={classes.container}  component='div'> 
             <Typography component='h4' className={classes.label}>
                 {title}
             </Typography>
-            <TextField onBlur={handleChange}  value={state} type='text' color='primary' variant='outlined' placeholder={placeholder} className={classes.root}/>
+            <TextField onChange={debouncedCallback}  value={state} type='text' color='primary' variant='outlined' placeholder={placeholder} className={classes.root}/>
     </Box>)
 }
 

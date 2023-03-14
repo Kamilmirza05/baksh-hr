@@ -20,9 +20,15 @@ const Department = require('./src/models/department');
 const Designation = require('./src/models/designation');
 const EmployeeCompany = require('./src/models/empCompany');
 const EmployeeBank = require('./src/models/empBank');
+const Bank=require('./src/models/bank');
+const cors=require('cors')
 
 const version1='v1';
-
+const options={
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods':'GET, POST, PUT, DELETE'
+}
+app.use(cors(options))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
 

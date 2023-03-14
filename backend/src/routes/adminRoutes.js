@@ -6,8 +6,10 @@ const department=require('../controllers/department.controller')
 const { multerUpload } = require('../middleware/multer');
 const isAuth=require('../middleware/authorize')
 const EmployeeController=require('../controllers/employee.controller')
+const {getDepartment} =require('../controllers/department.controller');
 
 const {validRole,validUser,validManager, validEditManager, validEmployee}=require('../validations/validations');
+const { getDesignations } = require('../controllers/department.controller');
 
 // Admin Controller
 router.post('/',adminController.createAdmin);
@@ -32,6 +34,11 @@ router.delete('/delete-manager/:userId',isAuth,managerController.deleteManager);
 
 // Create the deparment
 router.post('/department',isAuth,department.createDepartment);
+
+router.get('/department',isAuth,getDepartment);
+
+router.get('/designation/:id',getDesignations);
+
 
 // Create Employee
 
