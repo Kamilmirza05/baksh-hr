@@ -57,11 +57,13 @@ const EmployeeBank = ({parentClass}) => {
     <Box component='div' className={classes.container}>
        <Box component='h1' className={classes.title}>Bank Details</Box>
        <Box component='div' className={classes.fields}>
-           <InputText placeholder={'Add Account Holder Name'} title={'Account Holder Name'}/>
-           <InputNumber label={'Account Holder Name'} classes={classes} placeholder={'Add Account Number'} />
+           <InputText placeholder={'Add Account Holder Name'} setState={employeeAction.accountHolderAction} title={'Account Holder Name'}/>
+           <InputNumber label={'Account Holder Number'}         setState={employeeAction.accountNumberAction} classes={classes} placeholder={'Add Account Number'} />
            <Box className={parentClass.flexRow}>
                 <SelectUi    title={'Add Bank Name'} data={banks} setState={employeeAction.BankAction} state={bankId} classes={classes}/>
-                <SelectUi title={'Add Branch Name'} data={BranchName} classes={classes}/>
+                <InputText placeholder={'Branch Name'} setState={employeeAction.branchNameAction} title={'Add Branch Name'}/>
+
+                {/* <SelectUi title={'Add Branch Name'} data={BranchName} classes={classes}/> */}
            </Box>
        </Box>
     </Box>

@@ -93,6 +93,12 @@ const getManagers=async (offset=0,limit=10,page=1)=>{
 }
 
 
+const getManagersList=async ()=>{
+    // where:{deletedAt:null},
+    const response=await Manager.findAll({attributes:['id',['name','label']]});
+    return response;
+}
+
 const getManager=async(userId)=>{
     const user=await User.findOne({where:{id:userId},include:{model:Manager}});
     return user;
@@ -100,15 +106,9 @@ const getManager=async(userId)=>{
 
 
 const deleteManager=async(userId)=>{
-    console.log(userId)
     const user=await User.findOne({where:{id:userId}});
-    console.log(user)
     await user.destroy();
-    // const manager=await Manager.findOne({where:{userId:userId}});
-    // await manager.destroy();
-
-    console.log(user)
     return user;
 }
 
-module.exports={createManager,editManager,getManagers,getManager,deleteManager};
+module.exports={createManager,editManager,getManagers,getManager,deleteManager,getManagersList};

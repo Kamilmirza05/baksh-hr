@@ -38,3 +38,31 @@
 {"level":"error","message":"Unknown column 'designation.deparmentId' in 'where clause'","timestamp":"2023-03-13T19:20:17.452Z"}
 {"level":"error","message":"Bank.findAll is not a function","timestamp":"2023-03-13T20:39:48.135Z"}
 {"level":"error","message":"Bank.findAll is not a function","timestamp":"2023-03-13T20:39:49.840Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:13.963Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:15.114Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:17.379Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:17.737Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:41.517Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:48.141Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:48.613Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:48.904Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:49.138Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:02:49.367Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:03:31.344Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:04:16.941Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:04:18.156Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:04:43.858Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:08:52.184Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:08:52.825Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:08:54.577Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:08:54.943Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:10:39.990Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:10:42.216Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:10:47.355Z"}
+{"level":"error","message":"Unknown column 'employees.contactOne' in 'field list'","timestamp":"2023-03-14T20:11:01.155Z"}
+{"level":"error","message":"Manager.getManagersList is not a function","timestamp":"2023-03-14T20:18:33.843Z"}
+{"level":"error","message":"Manager.getManagersList is not a function","timestamp":"2023-03-14T20:18:33.863Z"}
+{"level":"error","message":"Manager.getManagersList is not a function","timestamp":"2023-03-14T20:19:18.141Z"}
+{"level":"error","message":"Manager.getManagersList is not a function","timestamp":"2023-03-14T20:19:18.206Z"}
+{"level":"error","message":"notNull Violation: department.userId cannot be null","timestamp":"2023-03-14T21:47:11.255Z"}
+{"level":"error","message":"notNull Violation: department.userId cannot be null","timestamp":"2023-03-14T21:47:13.277Z"}

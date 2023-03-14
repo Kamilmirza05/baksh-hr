@@ -26,6 +26,10 @@ router.put('/create-manager',isAuth,multerUpload.single('managerPhoto'),validEdi
 router.post('/get-managers',isAuth,managerController.getManagers);
 // Get the Single Manager
 router.get('/get-manager/:userId',isAuth,managerController.getManager);
+
+// Get Manager list for drop down
+router.get('/get-managersList',managerController.getManagersList);
+
 // Delete Manager
 router.delete('/delete-manager/:userId',isAuth,managerController.deleteManager);
 
@@ -33,21 +37,22 @@ router.delete('/delete-manager/:userId',isAuth,managerController.deleteManager);
 // Departments
 
 // Create the deparment
-router.post('/department',isAuth,department.createDepartment);
+// isAuth
+router.post('/department',department.createDepartment);
 
-router.get('/department',isAuth,getDepartment);
+router.get('/department',getDepartment);
 
 router.get('/designation/:id',getDesignations);
 
 
+
 // Create Employee
 
-router.post('/create-employee',isAuth,multerUpload.single('employeePhoto'),validEmployee,EmployeeController.createEmployee)
-
-
+router.post('/create-employee',isAuth,multerUpload.single('employeePhoto'),validEmployee,EmployeeController.createEmployee);
 // Edit Employee
+router.put('/edit-employee',multerUpload.single('employeePhoto'),EmployeeController.editEmployee);
 
-router.put('/edit-employee',multerUpload.single('employeePhoto'),EmployeeController.editEmployee)
 
+router.get('/salaryTypes',EmployeeController.salaryTypes);
 
 module.exports=router;

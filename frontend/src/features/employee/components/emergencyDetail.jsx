@@ -5,6 +5,8 @@ import InputText from '../ui/input'
 import InputNumber from '../../../components/ui/inputNumber';
 import SelectUi from '../../../components/ui/select';
 import ButtonUi from '../../../components/ui/button';
+import { useSelector } from 'react-redux';
+import { employeeAction } from '../../../redux/slice/employeeSlice';
 
 
 const BankName=[
@@ -72,23 +74,28 @@ const useStyles=makeStyles({
 
 const EmergencyDetail = ({}) => {
   const classes=useStyles()
+  const name=useSelector(state=>state.emp.name);
+  const fatherName=useSelector(state=>state.emp.fatherName);
+  const profilePic=useSelector(state=>state.emp.profilePic);
+  const dob=useSelector(state=>state.emp.dob);
+
+  
+  
+
   return (
     <Box component='div' className={classes.container}>
        <Box component='h1' className={classes.title}>Emergency Details</Box>
        <Box component='div' className={classes.fields}>
            <Box className={classes.flexRow}>
-                <InputText placeholder={'Add Name of Kin'} title={'Blood Group'}/>
-                <InputNumber label={'Add Phone Number'} classes={classes} placeholder={'Emergency Contact'} />
+                <InputText placeholder={'Add Name of Kin'} setState={employeeAction.bloodGroupAction} title={'Blood Group'}/>
+                <InputNumber label={'Add Phone Number'}    setState={employeeAction.emergencyContactAction}  classes={classes} placeholder={'Emergency Contact'} />
            </Box>
-           <InputText placeholder={'Add Name of Kin'} title={'Next of Kin'}/>
+           <InputText placeholder={'Add Name of Kin'} setState={employeeAction.kinNameAction} title={'Next of Kin'}/>
            <Box className={classes.flexRow}>
-                <InputText placeholder={'Relation'} title={'Add Relation '}/>
-                <InputNumber label={'Phone'} classes={classes} placeholder={'Add Phone Number'} />
+                <InputText placeholder={'Relation'} setState={employeeAction.relationAction} title={'Add Relation '}/>
+                <InputNumber label={'Phone'} setState={employeeAction.relationContactNoAction} classes={classes} placeholder={'Add Phone Number'} />
            </Box>
-           <Box component='div' className={classes.flexEnd}>
-             <Button>Save as draft</Button>
-             <Button className={classes.subBtn}>Submit</Button>
-           </Box>
+
        </Box>
     </Box>
   )

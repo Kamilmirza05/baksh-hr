@@ -25,3 +25,17 @@ exports.editEmployee=async (req,res,next)=>{
     }
 
 }
+
+exports.salaryTypes=async (req,res,next)=>{
+
+    try {
+        let response=await Employee.salaryType();
+        response=await response.map((emp)=>{
+            return emp.type;
+        })
+        res.json({msg:"Salary Succefully Fetched",flag:true,salaryTypes:response})
+
+    } catch (error) {
+        return Error(req,res,error);
+    }
+}

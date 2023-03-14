@@ -7,9 +7,9 @@ const data={
   referenceOneContact:'',referenceTwo:'',referenceTwoPhone:'',martialStatus:'',
   comment:'',designationId:'',dateofJoining:"",email:'',password:'',
   managerId:'',status:'',bloodGroup:'',emergencyContact:'',kinname:'',relation:'',
-  kinPhone:'',accountholderName:'',accountNumber:'',bankId:'',branch:'',bankCode:'',
+  kinPhone:'',accountholderName:'',accountNumber:'',bankId:'',branchName:'',bankCode:'',
   salaryType:'',salary:'',employeeId:'',profilePic:null,departmentId:0,relationContact:'',
-  managers:[],departments:[],designations:[],banks:[]
+  managers:[],departments:[],designations:[],banks:[],salaryTypes:[],
 }
 const EmployeeSlice = createSlice({
   name: 'employee',
@@ -17,6 +17,12 @@ const EmployeeSlice = createSlice({
   reducers: {
     profileAction:(state,action)=>{
       state.profilePic=action.payload
+    },
+    emailAction:(state,action)=>{
+      state.email=action.payload
+    },
+    passwordAction:(state,action)=>{
+      state.password=action.payload
     },
     addNameAction:(state,action)=>{
       state.name=action.payload;
@@ -60,8 +66,8 @@ const EmployeeSlice = createSlice({
     BankAction:(state,action)=>{
       state.bankId=action.payload;
     },
-    BranchAction:(state,action)=>{
-      state.branch=action.payload;
+    branchNameAction:(state,action)=>{
+      state.branchName=action.payload;
     },
     employeeIdAction:(state,action)=>{
       state.employeeId=action.payload;
@@ -114,6 +120,9 @@ const EmployeeSlice = createSlice({
     },
     banksAction:(state,action)=>{
       state.banks=action.payload;
+    },
+    salaryTypesAction:(state,action)=>{
+      state.salaryTypes=action.payload
     }
   }
 });

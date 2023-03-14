@@ -85,7 +85,7 @@ export default function SelectLocalUi({title,data,setState}) {
     const {
       target: { value },
     } = event;
-  
+        dispatch(setState(value));
         setPersonName(
         // On autofill we get a stringified value.
         typeof value === 'string' ? value.split(',') : value,

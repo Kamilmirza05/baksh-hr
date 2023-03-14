@@ -1,6 +1,7 @@
 import { Box, makeStyles } from '@material-ui/core';
 import { Input, TextField, Typography } from '@mui/material'
 import React from 'react'
+import { useDispatch } from 'react-redux';
 
 const useStyles=makeStyles({
     'input':{
@@ -39,14 +40,18 @@ const useStyles=makeStyles({
         width:'100%'
     }
 })
-const InputText = ({placeholder,label}) => {
+const InputText = ({placeholder,label,setState}) => {
+  const dispatch=useDispatch();
   const classes=useStyles();
-  
+
+  const handleChange=(e)=>{
+    dispatch(setState(e.target.value))
+  }
   return (<Box className={classes.container}  component='div'>
             <Typography component='h4' className={classes.label}>
                 {label}
             </Typography>
-            <TextField type='number' color='primary' variant='outlined' placeholder={placeholder} className={classes.root}/>
+            <TextField type='number' onBlur={handleChange}  color='primary' variant='outlined' placeholder={placeholder} className={classes.root}/>
     </Box>)
 }
 

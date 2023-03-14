@@ -44,6 +44,17 @@ const useStyles=makeStyles({
 
   },
   root: {
+      '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: '#E1E1E1',
+          },
+          '&:hover fieldset': {
+            borderColor: '#868B90',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: '#C49A50',
+          },
+      },
       [`& fieldset`]: {
           border: '1px solid #E1E1E1',
         borderRadius: "10px !important",
@@ -84,9 +95,9 @@ export default function SelectUi({title,data=['ahmad','ali'],setState,state}) {
   const handleChange = (event,child) => {
     const {
       target: { value },
-    } = event;
-  
+    } = event; 
       const id=child.props.id;
+      console.log(id)
       dispatch(setState(id))
 
 

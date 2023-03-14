@@ -12,6 +12,7 @@ import EmployeeBank from './employeeBank';
 import { useDispatch,useSelector } from 'react-redux';
 import { employeeAction } from '../../../redux/slice/employeeSlice';
 import SelectLocalUi from '../../../components/ui/selectLocal';
+const {country}=require('./country')
 
 const useStyles=makeStyles({
     container:{
@@ -76,6 +77,8 @@ const EmployeLeft = () => {
   const name=useSelector(state=>state.emp.name);
   const fatherName=useSelector(state=>state.emp.fatherName);
   const profilePic=useSelector(state=>state.emp.profilePic);
+  console.log(country)
+
   const classes=useStyles();
   const Country=[
     'pakistan',
@@ -84,6 +87,12 @@ const EmployeLeft = () => {
   const Gender=[
     'male',
     'female',
+    'other'
+  ]
+
+  const martialStatus=[
+    'single',
+    'married',
     'other'
   ]
 
@@ -102,18 +111,17 @@ const EmployeLeft = () => {
         <InputText placeholder={'Add Father Name'} title={'Father Name'}  setState={employeeAction.fatherNameAction} state={fatherName}/>
         <Box className={classes.flexRow}>
             <DatePickterUi title={'Date of Birth'} setState={employeeAction.dobAction} classes={classes}/>
-            <SelectLocalUi title={'Gender'} data={Country} setState={employeeAction.genderAction} classes={classes}/>
+            <SelectLocalUi title={'Gender'} data={Gender} setState={employeeAction.genderAction} classes={classes}/>
         </Box>
         <Box className={classes.flexRow}>
-            <InputNumber label={'Phone 1'} classes={classes}/>
-            <InputNumber label={'Phone 2'} classes={classes}/>
-
+            <InputNumber label={'Phone 1'} setState={employeeAction.contactOneAction} placeholder="Add Contact No" classes={classes}/>
+            <InputNumber label={'Phone 2'} setState={employeeAction.contactTwoAction} placeholder="Add Contact No" classes={classes}/>
         </Box>
-        <MultiLineText label={'Local Address'} placeholder={"Add Local Address"}/>
-        <InputText placeholder={'Add Permanent Address'} title={'Permanent Address'}/>
+        <MultiLineText label={'Local Address'} setState={employeeAction.localAddressAction} placeholder={"Add Local Address"}/>
+        <InputText placeholder={'Add Permanent Address'} setState={employeeAction.permanentAddressAction} title={'Permanent Address'}/>
         <Box className={classes.flexRow}    >
-            <SelectUi title={'Nationality'} data={Gender} classes={classes}/>
-            <SelectUi title={'Marital Status'} data={Country} classes={classes}/>
+            <SelectLocalUi title={'Nationality'}    setState={employeeAction.nationalityAction} data={country} classes={classes}/>
+            <SelectLocalUi title={'Marital Status'} setState={employeeAction.martialStatusAction}   data={martialStatus} classes={classes}/>
         </Box>
         <Box component='hr' className={classes.border}></Box>
         <EmployeeBank parentClass={classes}/>

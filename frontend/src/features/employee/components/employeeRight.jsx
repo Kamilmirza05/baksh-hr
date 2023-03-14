@@ -1,5 +1,5 @@
 import { Input, makeStyles } from '@material-ui/core'
-import { Box, Typography } from '@mui/material'
+import { Box, Typography,Button } from '@mui/material'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import React, { useEffect } from 'react'
 import FileInput from '../../../components/ui/fileInput'
@@ -16,6 +16,7 @@ import { employeeAction } from '../../../redux/slice/employeeSlice';
 import axios from 'axios';
 import { adminApi } from '../../../axios/axiosData';
 import SelectLocalUi from '../../../components/ui/selectLocal';
+import AccountLogin from './accountLogin';
 
 
 const useStyles=makeStyles({
@@ -62,7 +63,6 @@ const useStyles=makeStyles({
     flexRow:{
         display:'flex',
         width:'100%',
-        flex:1,
         justifyContent:'center',
         alignItems:'center',
         gap:20
@@ -74,6 +74,24 @@ const useStyles=makeStyles({
       width:'auto',
       transform:'rotate(180)'
     },
+    subBtn:{
+      backgroundColor:'#C49150 !important',
+      color:'white !important',
+      width:'13.3rem',
+      height:'46px !important',
+      borderRadius:'10px !important'
+    },
+    flexEnd:{
+        display:'flex',
+        width:'100%',
+        flex:1,
+        justifyContent:'end',
+        alignItems:'end',
+        gap:20,
+        marginTop:'2rem',
+        paddingRight:'2rem',
+        marginRight:'3rem'
+    }
 
 })
 
@@ -82,17 +100,17 @@ const status=[
   'active',
   'inactive'
 ]
-const EmployeRight = () => {
+const EmployeRight = ({submitHandler}) => {
   const dispatch=useDispatch();
   const classes=useStyles();
   const departmentId=useSelector(state=>state.emp.departmentId);
   const departments=useSelector(state=>state.emp.departments);
   const designations=useSelector(state=>state.emp.designations);
   const dateofJoining=useSelector(state=>state.emp.dateofJoining);
-
+  const managers=useSelector(state=>state.emp.managers);
+  console.log(managers)
 
   useEffect(()=>{
-    console.log('hit...')
     const getDesignation=async ()=>{
       const response=await axios.get(adminApi+`/designation/${departmentId}`)
       dispatch(employeeAction.deisgnationsAction(response?.data?.designations))
@@ -115,9 +133,7 @@ const EmployeRight = () => {
     'other'
   ]
 
-  useEffect(()=>{
 
-  },[])
 
 
   const deparmentHandler=(e)=>{
@@ -132,14 +148,17 @@ const EmployeRight = () => {
         </Typography>
       </Box>
       <Box className={classes.innerContainer} component='div'>
-        <InputText placeholder={'Add Employee ID'} title={'Employee Id'}/>
+        <InputText setState={employeeAction.employeeIdAction} placeholder={'Add Employee ID'} title={'Employee Id'}/>
         <SelectUi title={'Department'}  data={departments} handleChange={deparmentHandler} setState={employeeAction.departmentAction} state={departmentId} classes={classes} use={'fetch'}/>
         <SelectUi title={'Designation'} data={designations} setState={employeeAction.designationAction} classes={classes}/>
         <Box className={classes.flexRow}>
         {/* departments */}
             <DatePickterUi title={'Date of Joining'} setState={employeeAction.dateofJoiningAction} state={dateofJoining} classes={classes}/>
-            <SelectLocalUi title={'Status'} handleChange={employeeAction.statusAction} data={status} classes={classes}/>
+            <SelectLocalUi title={'Status'} setState={employeeAction.statusAction} data={status} classes={classes}/>
         </Box>
+        <SelectUi title={'Manager'} data={managers} setState={employeeAction.managerAction} classes={classes}/>
+
+
 
         {/* <Box className={classes.flexRow}    >
             <SelectUi title={'Nationality'} data={Gender} classes={classes}/>
@@ -150,6 +169,12 @@ const EmployeRight = () => {
         <Box component='hr' className={classes.border}></Box>
 
         <EmergencyDetail/>
+        <AccountLogin/>
+
+        <Box component='div' className={classes.flexEnd}>
+             <Button>Save as draft</Button>
+             <Button className={classes.subBtn} onClick={submitHandler}>Submit</Button>
+           </Box>
       </Box>
     </Box>
 

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 const useStyles=makeStyles({
-       label:{
+    label:{
         fontFamily: 'Poppins',
         fontSize: '10px',
         fontWeight: '600',
@@ -18,6 +18,25 @@ const useStyles=makeStyles({
         display:'flex',
         width:'100%',
         flexDirection:'column'
+    },
+    root:{
+        [`& fieldset`]: {
+            border: '1px solid #E1E1E1',
+          borderRadius: "10px !important",
+        },
+        width:'100%',
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#E1E1E1',
+            },
+            '&:hover fieldset': {
+              borderColor: '#868B90',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#C49A50',
+            },
+        },
+
     }
 })
 const DatePickterUi = ({classes,title,setState,state}) => {
@@ -31,7 +50,7 @@ const DatePickterUi = ({classes,title,setState,state}) => {
         <Typography component='h4' className={classStyle.label}>
             {title}
         </Typography>
-        <DatePicker onChange={handleChange}  className={classes.root}/>
+        <DatePicker onChange={handleChange}  className={classStyle.root}/>
     </Box>
   </>)
 }

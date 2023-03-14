@@ -8,7 +8,21 @@ import file from '../../images/file.svg'
 const useStyles=makeStyles({
     container:{
         display:'flex',
-        cursor:'pointer'
+        cursor:'pointer',
+        justifyContent:'start',
+        alignItems:'center',
+        gap:10,
+        
+    },
+    fonsize:{
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: '400',
+        fontSize: '12px',
+        lineHeight: '18px',
+        /* identical to box height */
+
+        letterSpacing: '-0.02em',
     },
     file:{
         width:'133px',
@@ -33,6 +47,20 @@ const useStyles=makeStyles({
         lineHeight: '15px',
         textAlign: 'center',
         letterSpacing: '-0.02em'
+    },
+    fileRightFont:{
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: '400',
+        fontSize: '12px',
+        lineHeight: '18px',
+        /* identical to box height */
+    
+        letterSpacing: '-0.02em',    
+    },
+
+    span:{
+        color:'#868B90'
     }
 })
 const FileInput = ({setState,state}) => {
@@ -42,7 +70,6 @@ const FileInput = ({setState,state}) => {
     const HandleChange=(e)=>{
         dispatch(setState(e.target.files[0]));
     }
-    console.log(state)
   return (
     <Box component='div' className={classes.container}>
        <input type='file' hidden onChange={HandleChange}   name="profile" id='profile'/>
@@ -56,12 +83,12 @@ const FileInput = ({setState,state}) => {
                     <p className={classes.filedescription}>Drop a file or browse a file to upload</p>
                 </>
              }
-
-
-             
+         
+                
         </Box>
        </label>
-        <Box component='div' className={classes.container}>
+        <Box component='h1' className={classes.fileRightFont}>
+          Upload Profile Picture <span className={classes.span} >(2 MB max Size)</span>
         </Box>
     </Box>
   )

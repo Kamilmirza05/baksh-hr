@@ -28,13 +28,12 @@ const Employee = sequelize.define('employee', {
     type:DataTypes.STRING,
     allowNull:false
   },
-  phoneOne:{
+  contactOne:{
     type:DataTypes.STRING,
     unique:true,
-
     allowNull:false
   },
-  phoneTwo:{
+  contactTwo:{
     type:DataTypes.STRING,
     allowNull:false
   },
@@ -50,22 +49,7 @@ const Employee = sequelize.define('employee', {
     type:DataTypes.STRING,
     allowNull:false
   },
-  referenceOne:{
-    type:DataTypes.STRING,
-    allowNull:false
-  },
-  referenceOnePhone:{
-    type:DataTypes.STRING,
-    allowNull:false
-  },
-  referenceTwo:{
-    type:DataTypes.STRING,
-    allowNull:false
-  },
-  referenceTwoPhone:{
-    type:DataTypes.STRING,
-    allowNull:false
-  },
+
   martialStatus:{
     type: Sequelize.DataTypes.ENUM('married', 'unmarried', 'other'),
     allowNull:false,

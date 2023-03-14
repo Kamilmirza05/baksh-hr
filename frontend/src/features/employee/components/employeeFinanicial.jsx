@@ -5,6 +5,8 @@ import InputText from '../ui/input'
 import InputNumber from '../../../components/ui/inputNumber';
 import SelectUi from '../../../components/ui/select';
 import SelectLocalUi from '../../../components/ui/selectLocal';
+import { useDispatch, useSelector } from 'react-redux';
+import { employeeAction } from '../../../redux/slice/employeeSlice';
 
 
 const BankName=[
@@ -47,13 +49,16 @@ const useStyles=makeStyles({
 
 const EmployeeFinancial = ({parentClass}) => {
   const classes=useStyles()
+  const dispatch=useDispatch();
+  const salaryTypes=useSelector(state=>state.emp.salaryTypes);
+
   return (
     <Box component='div' className={classes.container}>
        <Box component='h1' className={classes.title}>Financial Details</Box>
        <Box component='div' className={classes.fields}>
            {/* <InputText placeholder={'Add Account Holder Name'} title={'Account Holder Name'}/> */} 
-            <SelectLocalUi    title={'Select Salary Type'} data={BankName} classes={classes}/>
-            <InputNumber label={'Salary'} classes={classes} placeholder={'Add Salary'} />
+            <SelectLocalUi    title={'Select Salary Type'} setState={employeeAction.salaryTypeAction} data={salaryTypes} classes={classes}/>
+            <InputNumber label={'Salary'} classes={classes} setState={employeeAction.salaryAction} placeholder={'Add Salary'} />
        </Box>
     </Box>
   )

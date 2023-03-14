@@ -28,7 +28,7 @@ exports.validUser=[
         return res.status(400).json({ errors: errors.array() });
       }
 
-      User.findOne({where:{email:value}})
+      User.findOne({where:{email:req.body.email}})
       .then(user => {
         if (user) {
           console.log('ht,,,')
@@ -166,15 +166,15 @@ exports.validEmployee=[
   body('fatherName').notEmpty().withMessage('Father Name is required'),
   body('dob').notEmpty().withMessage('Date of Birth is required'),
   body('gender').notEmpty().withMessage('Gender is required').isIn(['male', 'female', 'other']).withMessage('Invalid Gender'),
-  body('phoneOne').notEmpty().withMessage('Primary Phone is required'),
-  body('phoneTwo').optional().notEmpty().withMessage('Secondary Phone is required'),
+  body('contactOne').notEmpty().withMessage('Primary Phone is required'),
+  body('contactTwo').optional().notEmpty().withMessage('Secondary Phone is required'),
   body('localAddress').notEmpty().withMessage('Local Address is required'),
   body('nationality').notEmpty().withMessage('Nationality is required'),
   body('permanentAddress').notEmpty().withMessage('Permanent Address is required'),
-  body('referenceOne').notEmpty().withMessage('Reference One is required'),
-  body('referenceOnePhone').notEmpty().withMessage('Reference One Phone is required'),
-  body('referenceTwo').notEmpty().withMessage('Reference Two is required'),
-  body('referenceTwoPhone').notEmpty().withMessage('Reference Two Phone is required'),
+  // body('referenceOne').notEmpty().withMessage('Reference One is required'),
+  // body('referenceOnePhone').notEmpty().withMessage('Reference One Phone is required'),
+  // body('referenceTwo').notEmpty().withMessage('Reference Two is required'),
+  // body('referenceTwoPhone').notEmpty().withMessage('Reference Two Phone is required'),
   body('martialStatus').notEmpty().withMessage('Marital Status is required'),
   body('departmentId').notEmpty().withMessage('Department ID is required'),
   body('designationId').notEmpty().withMessage('Designation ID is required'),
@@ -189,9 +189,8 @@ exports.validEmployee=[
   body('kinPhone').notEmpty().withMessage('Next of Kin Phone is required'),
   body('holderName').notEmpty().withMessage('Account Holder Name is required'),
   body('accountNumber').notEmpty().withMessage('Account Number is required'),
-  body('bankName').notEmpty().withMessage('Bank Name is required'),
+  body('bankId').notEmpty().withMessage('Bank Name is required'),
   body('branch').notEmpty().withMessage('Branch is required'),
-  body('bankCode').notEmpty().withMessage('Bank Code is required'),
   body('salaryType').notEmpty().withMessage('Salary Type is required'),
   body('salary').notEmpty().withMessage('Salary is required'),
   (req, res, next) => {

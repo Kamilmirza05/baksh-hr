@@ -11,11 +11,38 @@ const useStyles=makeStyles({
         // outline:'none'
     },
     root: {
+        cursor:'pointer',
+        input:{
+            '&::placeholder': {
+                fontStyle: 'italic',
+                color:'#868B90',
+                fontSize:'12px'
+            },
+        },
+        '& label.Mui-focused': {
+            color: 'white',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: 'yellow',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#E1E1E1',
+            },
+            '&:hover fieldset': {
+              borderColor: '#868B90',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#C49A50',
+            },
+        },
         [`& fieldset`]: {
             border: '1px solid #E1E1E1',
           borderRadius: "10px !important",
+
         },
-        width:'100%'
+        height:'42px !important',
+        width:'100%',
     },
 
     label:{
@@ -39,16 +66,17 @@ const InputText = ({placeholder,title,setState,state}) => {
   const handleChange=(e)=>{
     console.log('hit...')
     console.log(e.target.value)
-    // dispatch(setState(e.target.value));
+    dispatch(setState(e.target.value));
   }
 
-  const debouncedCallback = useCallback(debounce(handleChange, 300));
 
   return (<Box className={classes.container}  component='div'> 
             <Typography component='h4' className={classes.label}>
                 {title}
             </Typography>
-            <TextField onChange={debouncedCallback}  value={state} type='text' color='primary' variant='outlined' placeholder={placeholder} className={classes.root}/>
+            <TextField InputProps={{
+                classes:{input: classes.input}
+            }} onBlur={handleChange}    type='text' color='primary' variant='outlined' placeholder={placeholder} className={classes.root}/>
     </Box>)
 }
 

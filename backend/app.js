@@ -9,6 +9,7 @@ const Permission = require('./src/models/permission');
 const logger=require('./src/logs');
 const bodyParser=require('body-parser');
 const Manager = require('./src/models/manager');
+const salaryType=require('./src/models/salaryType');
 // .evn file get
 require('dotenv').config();
 console.log('hii')
@@ -90,9 +91,13 @@ EmployeeBank.belongsTo(Employee)
 User.hasMany(Employee,{foreignKey:'createId'})
 User.belongsTo(Employee,{foreignKey:'createId'})
 
+
+Bank.hasMany(EmployeeBank,{foreignKey:'bankId'})
+EmployeeBank.hasMany(Bank,{foreignKey:'bankId'})
+
 // My sql database create
 sequelize
-.sync({})
+.sync({alter:true})
 .then(() => {
   console.log('Models synchronized successfully.');
 })
