@@ -14,6 +14,14 @@ router.post('/',adminController.createAdmin);
 router.post('/insert-role',validRole,adminController.insertRole);
 router.post('/create-admin',validUser,adminController.signup);
 
+// Attendance controllers
+router.get('/view-attendance-current', adminController.viewCurrentlyMarkedAttendance);
+router.put('/Employee/viewAttendance', adminController.viewAttendanceSheet);
+
+//Edit Attendance
+router.put('/edit-attendance/:id',adminController.editAttendance);
+
+router.delete('/edit-attendance/:id',adminController.deleteAttendance);
 // Manager
 
 // Create Manager
