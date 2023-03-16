@@ -4,13 +4,14 @@ import Sidebar from '../../../components/sidebar/sidebar'
 import { makeStyles } from '@material-ui/core';
 import { Box, Button} from '@mui/material'
 
-import EmployeLeft from './employeLeft';
-import EmployeeRight from './employeeRight';
+import EmployeLeft from '../components/employeLeft';
+import EmployeeRight from '../components/employeeRight';
 import { useDispatch, useSelector } from 'react-redux';
 import EmployeeThunk from '../../../redux/thunk/employeeThunk';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { adminApi } from '../../../axios/axiosData';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles=makeStyles({
   mainContainer:{
@@ -39,6 +40,7 @@ const useStyles=makeStyles({
 })
 
 const Employee = () => {
+  const navigate=useNavigate();
   const [cookies] = useCookies(['token']);
   const classes=useStyles();
   const dispatch=useDispatch();
@@ -125,6 +127,9 @@ const Employee = () => {
         headers: {
           authorization: `Bearer ${token}`,
         },
+      })
+      .then((response)=>{
+        navigate('/employees')
       })
 
 

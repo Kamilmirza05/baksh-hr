@@ -22,7 +22,6 @@ const useStyles=makeStyles({
 })
 const Form = () => {
    const [cookies, setCookie] = useCookies(['userId','token','permission']);
-   
    const classes=useStyles();
    const navigate=useNavigate();
    const dispatch=useDispatch();
@@ -30,8 +29,6 @@ const Form = () => {
       email:'',
       password:''
    }) 
-
-   console.log(cookies)
 
    const dataHandler=(e)=>{
       const name=e.target.name;
