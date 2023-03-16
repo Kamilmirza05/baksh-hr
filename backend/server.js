@@ -2,7 +2,7 @@
 const cluster = require('cluster');
 const os = require('os');
 const app = require('./app'); // Your Express app
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 require('dotenv').config()
 
 
