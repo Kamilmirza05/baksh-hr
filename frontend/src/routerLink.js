@@ -16,14 +16,14 @@ const RouterLink = () => {
               </React.Suspense>
               } 
           />
-          <Route path="/Login" 
+          <Route path="/" 
               element={  
               <React.Suspense fallback={<>...</>}>
                 <Login/>
               </React.Suspense>
               } 
           />
-          <Route path="/" 
+          <Route path="/dashboard" 
               element={  
               <React.Suspense fallback={<>...</>}>
                 <Dashboard/>

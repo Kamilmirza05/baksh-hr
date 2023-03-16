@@ -4,8 +4,9 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { makeStyles } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import { Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -43,6 +44,17 @@ const useStyles=makeStyles({
 
   },
   root: {
+      '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: '#E1E1E1',
+          },
+          '&:hover fieldset': {
+            borderColor: '#868B90',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: '#C49A50',
+          },
+      },
       [`& fieldset`]: {
           border: '1px solid #E1E1E1',
         borderRadius: "10px !important",
@@ -74,16 +86,21 @@ function getStyles(name,personName, theme) {
   };
 }
 
-export default function SelectUi({title,data}) {
+export default function SelectUi({title,data=['ahmad','ali'],setState,state}) {
   const classes=useStyles();
-
+  const dispatch=useDispatch();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
-  const handleChange = (event) => {
+  const handleChange = (event,child) => {
     const {
       target: { value },
-    } = event;
+    } = event; 
+      const id=child.props.id;
+      console.log(id)
+      dispatch(setState(id))
+
+
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -91,7 +108,6 @@ export default function SelectUi({title,data}) {
   };
 
   return (
-          
       <FormControl sx={{ width: '100%'}} >
         <Typography component='h4' className={classes.label}>
             {title}
@@ -105,13 +121,14 @@ export default function SelectUi({title,data}) {
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}
         >
-           {data.map((name) => (
+           {data.map((list,id) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
+              key={id}
+              value={list.label}
+              id={list.id}
+              style={getStyles(list.label, personName, theme)}
             >
-              {name}
+              {list.label}
             </MenuItem>
           ))}
         </Select>

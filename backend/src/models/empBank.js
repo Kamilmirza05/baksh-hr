@@ -13,16 +13,9 @@ const EmployeeBank = sequelize.define('employee_bank', {
   },
   accountNumber:{
     type:DataTypes.STRING,
-  },
-  bankName:{
-    type:DataTypes.STRING,
     allowNull:false
   },
   branch:{
-    type:DataTypes.STRING,
-    allowNull:false
-  },
-  bankCode:{
     type:DataTypes.STRING,
     allowNull:false
   },

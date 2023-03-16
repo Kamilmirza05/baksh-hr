@@ -9,6 +9,7 @@ const Permission = require('./src/models/permission');
 const logger=require('./src/logs');
 const bodyParser=require('body-parser');
 const Manager = require('./src/models/manager');
+const salaryType=require('./src/models/salaryType');
 // .evn file get
 require('dotenv').config();
 console.log('hii')
@@ -20,12 +21,19 @@ const Department = require('./src/models/department');
 const Designation = require('./src/models/designation');
 const EmployeeCompany = require('./src/models/empCompany');
 const EmployeeBank = require('./src/models/empBank');
+const Bank=require('./src/models/bank');
+const cors=require('cors')
+const path=require('path')
 
 const version1='v1';
-
+const options={
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods':'GET, POST, PUT, DELETE'
+}
+app.use(cors(options))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
-
+app.use(express.static(path.join(__dirname,"./client/build")))
 // app.use(express.urlencoded())
 
 
@@ -33,6 +41,9 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use('/api/admin',adminRoutes)
 app.use('/api',Api)
 
+app.use("*",(req,res,next)=>{
+  res.sendFile(path.join(__dirname,'./client/build/index.html'))
+})
 
 // RelationShips Role and Permissions
 Role.hasMany(User,
@@ -84,9 +95,13 @@ EmployeeBank.belongsTo(Employee)
 User.hasMany(Employee,{foreignKey:'createId'})
 User.belongsTo(Employee,{foreignKey:'createId'})
 
+
+Bank.hasMany(EmployeeBank,{foreignKey:'bankId'})
+EmployeeBank.hasMany(Bank,{foreignKey:'bankId'})
+
 // My sql database create
 sequelize
-.sync({})
+.sync({alter:true})
 .then(() => {
   console.log('Models synchronized successfully.');
 })

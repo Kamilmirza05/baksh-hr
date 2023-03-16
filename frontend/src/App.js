@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from './features/login/components/login';
-import Employee from './features/employee/components/employee';
 import { Box} from '@mui/material';
 import { makeStyles } from '@material-ui/core';
 
