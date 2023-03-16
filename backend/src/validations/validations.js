@@ -63,7 +63,7 @@ exports.validManager=[
       return User.findOne({where:{email:email}})
       .then(user => {
         if (user) {
-          return res.json('E-mail already exist');
+          return Promise.reject('E-mail already exist');
         }
       });
     })
@@ -179,7 +179,17 @@ exports.validEmployee=[
   body('departmentId').notEmpty().withMessage('Department ID is required'),
   body('designationId').notEmpty().withMessage('Designation ID is required'),
   body('dateofJoining').notEmpty().withMessage('Date of Joining is required'),
-  body('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid Email'),
+  body('email').notEmpty().withMessage('Email is required')
+  .isEmail()
+  .withMessage('Invalid Email')
+  .custom((email)=>{
+      return User.findOne({where:{email:email}})
+      .then(user => {
+        if (user) {
+          return Promise.reject('E-mail already exist');
+        }
+      })
+  }),
   body('password').notEmpty().withMessage('Password is required'),
   body('status').notEmpty().withMessage('Status is required'),
   body('bloodGroup').notEmpty().withMessage('Blood Group is required'),

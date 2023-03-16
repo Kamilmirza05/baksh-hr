@@ -29,7 +29,6 @@ const createEmployee=async (req,res,
     kinPhone,holderName,accountNumber,bankName,branch,bankCode,
     salaryType,salary,employeeId}
     )=>{
-        console.log('service')
         console.log(name,fatherName,dob,gender,contactOne,contactTwo,
             localAddress,nationality,permanentAddress,martialStatus,
             departmentId,designationId,dateofJoining,email,password,
@@ -68,6 +67,7 @@ const createEmployee=async (req,res,
 
 
         const employee=await Employee.create({
+            id:employeeId,
             name,
             email:email,
             fatherName,

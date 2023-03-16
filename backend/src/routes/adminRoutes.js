@@ -53,6 +53,10 @@ router.post('/create-employee',isAuth,multerUpload.single('employeePhoto'),valid
 router.put('/edit-employee',multerUpload.single('employeePhoto'),EmployeeController.editEmployee);
 
 
+
 router.get('/salaryTypes',EmployeeController.salaryTypes);
+// Attendance 
+router.get('/view-attendance-current', adminController.viewCurrentlyMarkedAttendance);
+router.put('/Employee/viewAttendance', adminController.viewAttendanceSheet);
 
 module.exports=router;

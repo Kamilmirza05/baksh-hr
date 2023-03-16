@@ -23,6 +23,7 @@ const EmployeeCompany = require('./src/models/empCompany');
 const EmployeeBank = require('./src/models/empBank');
 const Bank=require('./src/models/bank');
 const cors=require('cors')
+const path=require('path')
 
 const version1='v1';
 const options={
@@ -32,7 +33,7 @@ const options={
 app.use(cors(options))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
-
+app.use(express.static(path.join(__dirname,"./client/build")))
 // app.use(express.urlencoded())
 
 
@@ -40,6 +41,9 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use('/api/admin',adminRoutes)
 app.use('/api',Api)
 
+app.use("*",(req,res,next)=>{
+  res.sendFile(path.join(__dirname,'./client/build/index.html'))
+})
 
 // RelationShips Role and Permissions
 Role.hasMany(User,
