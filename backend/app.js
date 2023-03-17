@@ -33,7 +33,7 @@ const options={
 app.use(cors(options))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
-app.use(express.static(path.join(__dirname,"./client/build")))
+// app.use(express.static(path.join(__dirname,"../frontend/build")))
 // app.use(express.urlencoded())
 
 
@@ -42,7 +42,7 @@ app.use('/api/admin',adminRoutes)
 app.use('/api',Api)
 
 app.use("*",(req,res,next)=>{
-  res.sendFile(path.join(__dirname,'./client/build/index.html'))
+  res.sendFile(path.join(__dirname,'../frontend/build'))
 })
 
 // RelationShips Role and Permissions
