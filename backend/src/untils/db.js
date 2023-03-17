@@ -6,17 +6,10 @@ const user=process.env.DBUSER;
 const dbname=process.env.DBNAME
 const host=process.env.HOST;
 console.log(user,dbname,password,host)
-const sequelize = new Sequelize(dbname,user,password , {
+const sequelize = new Sequelize(dbname,user,password ,   connectTimeout: 30000{
   host: host,
   dialect: 'mysql',
   logging: false,
-  pool: {
-    max: 15,
-    min: 5,
-    idle: 20000,
-    evict: 15000,
-    acquire: 30000
-  },
   retry: {
     match: [/Deadlock/i],
     max: 3, // Maximum rety 3 times
