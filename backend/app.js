@@ -41,9 +41,9 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use('/api/admin',adminRoutes)
 app.use('/api',Api)
 
-app.use("*",(req,res,next)=>{
-  res.sendFile(path.join(__dirname,'../frontend/build'))
-})
+// app.use("*",(req,res,next)=>{
+//   res.sendFile(path.join(__dirname,'../frontend/build'))
+// })
 
 // RelationShips Role and Permissions
 Role.hasMany(User,
