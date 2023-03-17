@@ -1,6 +1,6 @@
 
-const publicApi="http://localhost:8000/api";
-const adminApi="http://localhost:8000/api/admin";
+const publicApi="https://baksh-hr-production.up.railway.app/api";
+const adminApi="https://baksh-hr-production.up.railway.app/api/admin";
 
 
 module.exports ={publicApi,adminApi}
