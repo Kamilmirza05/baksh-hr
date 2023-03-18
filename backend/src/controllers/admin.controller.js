@@ -92,10 +92,10 @@ exports.viewAttendanceSheet=async (req,res,next)=>{
 // attendance controller for
 exports.editAttendance=async (req,res,next)=>{
 
-  const {employeeId}=req.params.employeeId;
+  const {userId}=req.params.employeeId;
 
   try {
-      const response=await Attendance.editAttendance(req.employeeId);
+      const response=await Attendance.editAttendance(userId);
       res.json({msg:"Attendance edited",flag:true,response:response})
   } catch (error) {
        return Error(req,res,error);
@@ -111,14 +111,6 @@ exports.deleteAttendnace=async (req,res,next)=>{
       return Error(req,res,error);
   }
 }
-
-// module.exports = {
-//     viewCurrentlyMarkedAttendance,
-//     viewAttendanceSheet,
-//     editAttendance,
-//     deleteAttendnace,
-//     signup
-// }
 
 
 
