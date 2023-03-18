@@ -32,7 +32,7 @@ exports.signup=async (req,res,next)=>{
 }
 
 // current attendance
-const viewCurrentlyMarkedAttendance=async (req,res,next)=>{
+exports.viewCurrentlyMarkedAttendance=async (req,res,next)=>{
 
   var attendanceChunks = [];
   Attendance.find({
@@ -61,7 +61,7 @@ const viewCurrentlyMarkedAttendance=async (req,res,next)=>{
   });
 }
 
-const viewAttendanceSheet=async (req,res,next)=>{
+exports.viewAttendanceSheet=async (req,res,next)=>{
   var attendanceChunks = [];
   Attendance.find({
       employeeID: req.session.user._id,
@@ -90,19 +90,19 @@ const viewAttendanceSheet=async (req,res,next)=>{
 
 
 // attendance controller for
-const editAttendance=async (req,res,next)=>{
+exports.updateAttendance=async (req,res,next)=>{
 
   const {employeeId}=req.params.employeeId;
 
   try {
-      const response=await Attendance.editAttendance(req.employeeId);
-      res.json({msg:"Attendance edited",flag:true,response:response})
+      const response=await Attendance.updateAttendance(req.employeeId);
+      res.json({msg:"Attendance has been updated",flag:true,response:response})
   } catch (error) {
        return Error(req,res,error);
   }
 }
 
-const deleteAttendnace=async (req,res,next)=>{
+exports.deleteAttendnace=async (req,res,next)=>{
   const {userId}=req.params.employeeId;
   try {
       const response= await Attendance.deleteAttendance(userId);
@@ -110,13 +110,6 @@ const deleteAttendnace=async (req,res,next)=>{
   } catch (error) {
       return Error(req,res,error);
   }
-}
-
-module.exports = {
-    viewCurrentlyMarkedAttendance,
-    viewAttendanceSheet,
-    editAttendance,
-    deleteAttendnace
 }
 
 

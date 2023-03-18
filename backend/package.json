@@ -4,8 +4,9 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "dev": "concurrently\"npm run start\" \"npm run frontend\""
   },
   "author": "",
   "license": "ISC",
@@ -16,11 +17,12 @@
     "express": "^4.18.2",
     "express-validation": "^4.1.0",
     "express-validator": "^6.15.0",
+    "fingerprintjs": "^0.5.3",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.1.2",
-    "nodemon": "^2.0.20",
+    "nodemon": "^2.0.21",
     "sequelize": "^6.29.0",
     "winston": "^3.8.2"
   }

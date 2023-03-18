@@ -9,6 +9,7 @@ const Permission = require('./src/models/permission');
 const logger=require('./src/logs');
 const bodyParser=require('body-parser');
 const Manager = require('./src/models/manager');
+const Attendance = require ('./src/models/attendance');
 // .evn file get
 require('dotenv').config();
 console.log('hii')
@@ -65,6 +66,9 @@ Department.belongsTo(User,{foreignKey:'userId'});
 
 Department.hasMany(Designation);
 Designation.belongsTo(Department);
+
+Attendance.hasMany(Department,{foreignKey:'EmployeeId'});
+Employee.belongsTo(Attendance);
 
 Department.hasMany(EmployeeCompany);
 EmployeeCompany.belongsTo(Department);

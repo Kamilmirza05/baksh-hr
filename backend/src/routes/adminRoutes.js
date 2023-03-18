@@ -43,7 +43,29 @@ router.post('/create-employee',isAuth,multerUpload.single('employeePhoto'),valid
 router.put('/edit-employee',multerUpload.single('employeePhoto'),EmployeeController.editEmployee)
 
 // Attendance 
+const multer = require('multer');
+const attedanceController = require('../controllers/attendance.controller');
+
+// Set up file upload storage and limits
+const storage = multer.memoryStorage();
+const limits = { fileSize: 1000000 };
+const upload = multer({ storage, limits });
+
+// Create new fingerprint data
+router.post('/', upload.single('fingerprint'), attedanceController.create);
+
+// Retrieve fingerprint data by ID
+router.get('/:id', attedanceController.findById);
+
+// Delete fingerprint data by ID
+router.delete('/:id', attedanceController.delete);
+
+// Attendance Routes
 router.get('/view-attendance-current', adminController.viewCurrentlyMarkedAttendance);
-router.put('/Employee/viewAttendance', adminController.viewAttendanceSheet);
+router.post('/create-attendance', adminController.viewCurrentlyMarkedAttendance);
+router.put('/update-attendance/:id', adminController.viewAttendanceSheet);
+router.delete('/delete-attendance/:id', adminController.viewAttendanceSheet);
+module.exports = router;
+
 
 module.exports=router;
