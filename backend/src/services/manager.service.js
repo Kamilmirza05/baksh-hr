@@ -12,14 +12,13 @@ const createManager=async (req,res,photo,name,phone,email,password,status,module
     const transaction = await sequelize.transaction();
     
     console.log(photo,name,phone,email,password,status,module,userId)
-        const roles=await Role.findOne({where:{roleName:'manager'}});
-        try{
-                const permission=await Permission.create({
+           const roles=await Role.findOne({where:{roleName:'manager'}});
+            const permission=await Permission.create({
                     module:module,
                     active:true,
-                },{transaction})
-                var hash = bcrypt.hashSync(password, 8);
-            
+            },{transaction})
+            var hash = bcrypt.hashSync(password, 8);        
+            try{
                 const user=await User.create({
                         email:email,
                         password:hash,
@@ -39,13 +38,16 @@ const createManager=async (req,res,photo,name,phone,email,password,status,module
 
                 await transaction.commit(); 
                 return manager;
-            
-        } catch (error) {
-            if(transaction) {
-                await transaction.rollback();
-                Error(req,res,error.message,500)
+
+            } catch (error) {
+                console.log(error);                
+                if(transaction) {
+                    await transaction.rollback();
+                    Error(req,res,error.message,500)
+                }
             }
-        }
+            
+
 
 }
 

@@ -1,9 +1,9 @@
+import { Formik, useFormik } from 'formik';
 import React, { useEffect } from 'react'
 import Header from '../../../components/header/header'
 import Sidebar from '../../../components/sidebar/sidebar'
 import { makeStyles } from '@material-ui/core';
-import { Box, Button} from '@mui/material'
-
+import { Box, Button, FormControl} from '@mui/material'
 import EmployeLeft from '../components/employeLeft';
 import EmployeeRight from '../components/employeeRight';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { adminApi } from '../../../axios/axiosData';
 import { useNavigate } from 'react-router-dom';
+import validationSchema from './validations';
 
 const useStyles=makeStyles({
   mainContainer:{
@@ -39,7 +40,23 @@ const useStyles=makeStyles({
 
 })
 
+
+// const validationSchema = yup.object({
+//   email: yup
+//     .string('Enter your email')
+//     .email('Enter a valid email')
+//     .required('Email is required'),
+//   password: yup
+//     .string('Enter your password')
+//     .min(8, 'Password should be of minimum 8 characters length')
+//     .required('Password is required'),
+// });
+
+
 const Employee = () => {
+
+
+
   const navigate=useNavigate();
   const [cookies] = useCookies(['token']);
   const classes=useStyles();
@@ -75,11 +92,38 @@ const Employee = () => {
   const email=useSelector(state=>state.emp.email);
   const password=useSelector(state=>state.emp.password);
   const managerId=useSelector(state=>state.emp.managerId)
-
-  // const department=useSelector(state=>state.emp.employeeId);
-
-
-
+  const initialValues = {
+    email: '',
+    password:'',
+    // name:'',
+    // fatherName:'',
+    // profilePic:'',
+    // dateofJoining:'',
+    // dob:'',
+    // gender:'',
+    departmentId:'',
+    designationId:'',
+    // contactOne:'',
+    // contactTwo:'',
+    // accountholderName:'',
+    // accountNumber:'',
+    // branchName:'',
+    // bankId:'',
+    // employeeId:'',
+    // status:'',
+    // salaryType:'',
+    // salary:'',
+    // bloodGroup:'',
+    // emergencyContact:'',
+    // kinname:'',
+    // relation:'',
+    // relationContact:'',
+    // localAddress:'',
+    // permanentAddress:'',
+    // martialStatus:'',
+    // nationality:'',
+    // managerId:'',
+  };
 
 
   useEffect(()=>{
@@ -163,6 +207,7 @@ const Employee = () => {
       // \ nationality:${nationality}
       // `)
   }
+  console.log(initialValues)
   return (
     <Box component='div' className={classes.mainContainer}>
         <Box component='div' className={classes.sidebar}>
@@ -170,11 +215,54 @@ const Employee = () => {
         </Box>
         <Box component='div'>
             <Header/>
-            <Box component='section' className={classes.emloyee}>
-              <EmployeLeft/>
-              <Box component='hr' className={classes.sideBorder}></Box>
-              <EmployeeRight submitHandler={submitHandler}/>
-            </Box>
+            {/* <Box component='section' className={classes.emloyee}> */}
+  
+            <Formik
+                initialValues={{
+                  ...initialValues
+                }}
+                validationSchema={validationSchema}
+                validateOnChange={false}
+                validateOnBlur={false}
+                onSubmit={(values) => {
+                  console.log('hit....')
+                  // console.log('hitt....',values)
+                  // submitHandler();
+                }}
+            >
+            {({
+              errors,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+              isSubmitting,
+              isValid,
+              dirty,
+              touched,
+              values
+            }) => (
+              <>
+              <FormControl
+                onClick={handleSubmit} 
+              >
+                {/* <EmployeLeft/> */}
+                <Box component='hr' className={classes.sideBorder}></Box>
+                <EmployeeRight submitHandler={submitHandler} 
+                  errors={errors}
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
+                  handleSubmit={handleSubmit}
+                  isSubmitting={isSubmitting}
+                  isValid={isValid}
+                  dirty={dirty}
+                  touched={touched}
+                  values={values}
+                />
+              </FormControl>
+              </>
+              )}
+            </Formik>
+            {/* </Box> */}
 
         </Box>
     </Box>

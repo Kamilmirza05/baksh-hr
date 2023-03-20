@@ -59,24 +59,47 @@ const useStyles=makeStyles({
     }
 })
 
-const InputText = ({placeholder,title,setState,state}) => {
+const InputText = (props) => {
+    const {
+        placeholder,
+        title,
+        name,
+        helperText, 
+        handleChange, 
+        value, 
+        error,
+        handleBlur
+    }=props
   const classes=useStyles();
   const dispatch=useDispatch();
 
-  const handleChange=(e)=>{
-    console.log('hit...')
-    console.log(e.target.value)
-    dispatch(setState(e.target.value));
-  }
-
+  console.log(value)
+//   const handleChange=(e)=>{
+//     console.log('hit...')
+    // console.log(e.target.value)
+    // dispatch(setState(e.target.value));
+//   }
 
   return (<Box className={classes.container}  component='div'> 
             <Typography component='h4' className={classes.label}>
                 {title}
             </Typography>
-            <TextField InputProps={{
-                classes:{input: classes.input}
-            }} onBlur={handleChange}    type='text' color='primary' variant='outlined' placeholder={placeholder} className={classes.root}/>
+            <TextField 
+                defaultValue={value}
+                helperText={helperText}  
+                error={error}
+                InputProps={{
+                    classes:{input: classes.input}
+                }}
+                onBlur={handleBlur}
+                onMouseLeave={handleChange}    
+                type='text' 
+                color='primary' 
+                variant='outlined' 
+                name={name}
+                placeholder={placeholder} 
+                className={classes.root}
+            />
     </Box>)
 }
 

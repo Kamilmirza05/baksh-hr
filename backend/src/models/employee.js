@@ -51,7 +51,7 @@ const Employee = sequelize.define('employee', {
   },
 
   martialStatus:{
-    type: Sequelize.DataTypes.ENUM('married', 'unmarried', 'other'),
+    type: Sequelize.DataTypes.ENUM('married', 'single', 'other'),
     allowNull:false,
     defaultValue: 'married',
   },

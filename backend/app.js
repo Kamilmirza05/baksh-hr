@@ -101,7 +101,7 @@ EmployeeBank.hasMany(Bank,{foreignKey:'bankId'})
 
 // My sql database create
 sequelize
-.sync({alter:true})
+.sync({})
 .then(() => {
   console.log('Models synchronized successfully.');
 })

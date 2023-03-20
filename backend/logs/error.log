@@ -82,3 +82,12 @@
 {"level":"error","message":"connect ETIMEDOUT","timestamp":"2023-03-17T13:10:33.203Z"}
 {"level":"error","message":"connect ETIMEDOUT","timestamp":"2023-03-17T13:16:02.016Z"}
 {"level":"error","message":"connect ETIMEDOUT","timestamp":"2023-03-17T13:21:02.838Z"}
+{"level":"error","message":"connect ETIMEDOUT","timestamp":"2023-03-17T15:39:37.344Z"}
+{"level":"error","message":"connect ETIMEDOUT","timestamp":"2023-03-18T07:59:52.108Z"}
+{"level":"error","message":"transaction is not defined","timestamp":"2023-03-18T08:59:36.162Z"}
+{"level":"error","message":"transaction is not defined","timestamp":"2023-03-18T08:59:37.992Z"}
+{"level":"error","message":"transaction is not defined","timestamp":"2023-03-18T09:27:30.284Z"}
+{"level":"error","message":"notNull Violation: department.userId cannot be null","timestamp":"2023-03-18T12:13:33.072Z"}
+{"level":"error","message":"notNull Violation: department.userId cannot be null","timestamp":"2023-03-18T12:14:20.691Z"}
+{"level":"error","message":"notNull Violation: department.userId cannot be null","timestamp":"2023-03-18T12:14:22.136Z"}
+{"level":"error","message":"notNull Violation: department.userId cannot be null","timestamp":"2023-03-18T12:14:23.576Z"}
