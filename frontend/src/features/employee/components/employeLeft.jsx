@@ -71,13 +71,21 @@ const useStyles=makeStyles({
     },
 
 })
-const EmployeLeft = () => {
+const EmployeLeft = ({ 
+  errors,
+  handleBlur,
+  handleChange,
+  handleSubmit,
+  setFieldValue,
+  isSubmitting,
+  isValid,
+  touched,
+  values}) => {
   const dispatch=useDispatch();
   const employee=useSelector(state=>state.emp.employeeData);
   const name=useSelector(state=>state.emp.name);
   const fatherName=useSelector(state=>state.emp.fatherName);
   const profilePic=useSelector(state=>state.emp.profilePic);
-  console.log(country)
 
   const classes=useStyles();
   const Country=[
@@ -107,24 +115,142 @@ const EmployeLeft = () => {
       </Box>
       <Box className={classes.innerContainer} component='div'>
         <FileInput state={profilePic} setState={employeeAction.profileAction}/>
-        <InputText placeholder={'Add Full name'} title={'name'} setState={employeeAction.addNameAction} state={name}/>
-        <InputText placeholder={'Add Father Name'} title={'Father Name'}  setState={employeeAction.fatherNameAction} state={fatherName}/>
+        <InputText 
+            placeholder={'Add Full name'} 
+            title={'name'} 
+            value={values.name} 
+            error={Boolean(touched.name && errors.name)} 
+            helperText={touched.name && errors.name}  
+            name="name" 
+            touched={touched}
+            handleChange={handleChange}
+            handleBlur={handleBlur} 
+         />
+        <InputText 
+                 placeholder={'Add Father Name'} 
+                 title={'Father Name'}  
+                  value={values.fatherName} 
+                  error={Boolean(touched.fatherName && errors.fatherName)} 
+                  helperText={touched.fatherName && errors.fatherName}  
+                  name="fatherName" 
+                  touched={touched}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur} 
+        />
         <Box className={classes.flexRow}>
-            <DatePickterUi title={'Date of Birth'} setState={employeeAction.dobAction} classes={classes}/>
-            <SelectLocalUi title={'Gender'} data={Gender} setState={employeeAction.genderAction} classes={classes}/>
+            <DatePickterUi 
+                title={'Date of Birth'} 
+                classes={classes}     
+                value={values.dob} 
+                  error={Boolean(touched.dob && errors.dob)} 
+                  helperText={touched.dob && errors.dob}  
+                  name="dob" 
+                  touched={touched}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur} 
+                  setFieldValue={setFieldValue}
+            />
+            <SelectLocalUi 
+                title={'Gender'} 
+                data={Gender} 
+                value={values.gender} 
+                error={Boolean(touched.gender && errors.gender)} 
+                helperText={touched.gender && errors.gender}  
+                name="gender" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                placeholder={"Select the Department"}   
+                classes={classes}/>
         </Box>
         <Box className={classes.flexRow}>
-            <InputNumber label={'Phone 1'} setState={employeeAction.contactOneAction} placeholder="Add Contact No" classes={classes}/>
-            <InputNumber label={'Phone 2'} setState={employeeAction.contactTwoAction} placeholder="Add Contact No" classes={classes}/>
-        </Box>
-        <MultiLineText label={'Local Address'} setState={employeeAction.localAddressAction} placeholder={"Add Local Address"}/>
-        <InputText placeholder={'Add Permanent Address'} setState={employeeAction.permanentAddressAction} title={'Permanent Address'}/>
+            <InputNumber 
+                label={'Phone 1'} 
+                value={values.contactOne} 
+                error={Boolean(touched.contactOne && errors.contactOne)} 
+                helperText={touched.contactOne && errors.contactOne}  
+                name="contactOne" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur}    
+                placeholder="Add Contact No" 
+                classes={classes}
+              />
+            
+            <InputNumber 
+                  label={'Phone 2'} 
+                  value={values.contactTwo} 
+                  error={Boolean(touched.contactTwo && errors.contactTwo)} 
+                  helperText={touched.contactTwo && errors.contactTwo}  
+                  name="contactTwo" 
+                  touched={touched}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}    
+                  placeholder="Add Contact No" 
+                  classes={classes}
+            />
+        </Box> 
+         <MultiLineText 
+            label={'Local Address'} 
+            value={values.localAddress} 
+            error={Boolean(touched.localAddress && errors.localAddress)} 
+            helperText={touched.localAddress && errors.localAddress}  
+            name="localAddress" 
+            touched={touched}
+            handleChange={handleChange}
+            handleBlur={handleBlur}    
+            placeholder={"Add Local Address"}
+         />
+        <InputText 
+                 placeholder={'Add Permanent Address'}  
+                 title={'Permanent Address'}
+                 value={values.permanentAddress} 
+                  error={Boolean(touched.permanentAddress && errors.permanentAddress)} 
+                  helperText={touched.permanentAddress && errors.permanentAddress}  
+                  name="permanentAddress" 
+                  touched={touched}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}    
+        />
         <Box className={classes.flexRow}    >
-            <SelectLocalUi title={'Nationality'}    setState={employeeAction.nationalityAction} data={country} classes={classes}/>
-            <SelectLocalUi title={'Marital Status'} setState={employeeAction.martialStatusAction}   data={martialStatus} classes={classes}/>
+            <SelectLocalUi 
+                title={'Nationality'}    
+                value={values.nationality} 
+                error={Boolean(touched.nationality && errors.nationality)} 
+                helperText={touched.nationality && errors.nationality}  
+                name="nationality" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+              data={country} 
+              classes={classes}
+            />
+            <SelectLocalUi 
+               title={'Marital Status'} 
+               data={martialStatus} 
+               classes={classes}
+               value={values.martialStatus} 
+                error={Boolean(touched.martialStatus && errors.martialStatus)} 
+                helperText={touched.martialStatus && errors.martialStatus}  
+                name="martialStatus" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+            />
         </Box>
         <Box component='hr' className={classes.border}></Box>
-        <EmployeeBank parentClass={classes}/>
+        <EmployeeBank 
+           parentClass={classes}
+           errors={errors}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
+              isValid={isValid}
+              values={values}
+              touched={touched}
+
+        />
       </Box>
     </Box>
 

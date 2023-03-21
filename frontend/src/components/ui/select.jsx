@@ -124,11 +124,10 @@ export default function SelectUi({title,data=[],handleChange,name,value,error,he
           inputProps={{ 'aria-label': 'Without label' }}
           placeholder={placeholder}
         >
-           {data.map((list,id) => (
+          {data.map((list,id) => (
             <MenuItem
               key={id}
               value={list.id}
-              // id={}
               style={getStyles(list.label, personName, theme)}
             >
               {list.label}

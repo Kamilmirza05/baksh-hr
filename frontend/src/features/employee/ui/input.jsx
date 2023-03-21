@@ -73,7 +73,6 @@ const InputText = (props) => {
   const classes=useStyles();
   const dispatch=useDispatch();
 
-  console.log(value)
 //   const handleChange=(e)=>{
 //     console.log('hit...')
     // console.log(e.target.value)
@@ -91,12 +90,15 @@ const InputText = (props) => {
                 InputProps={{
                     classes:{input: classes.input}
                 }}
-                onBlur={handleBlur}
-                onMouseLeave={handleChange}    
                 type='text' 
                 color='primary' 
                 variant='outlined' 
+                onBlur={(e)=>{
+                    handleChange(e);
+                    handleBlur(e);
+                }}
                 name={name}
+                id={name}
                 placeholder={placeholder} 
                 className={classes.root}
             />

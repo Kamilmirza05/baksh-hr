@@ -92,7 +92,7 @@ const AccountLogin = ({
             /> 
 
             {/* <SelectLocalUi    title={'Select Salary Type'} setState={employeeAction.salaryTypeAction} data={salaryTypes} classes={classes}/> */}
-            <InputNumber label={'Salary'} classes={classes} setState={employeeAction.salaryAction} placeholder={'Add Salary'} />
+            {/* <InputNumber label={'Salary'} classes={classes} setState={employeeAction.salaryAction} placeholder={'Add Salary'} /> */}
        </Box>
     </Box>
   )

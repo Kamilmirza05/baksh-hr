@@ -49,7 +49,6 @@ const useStyles=makeStyles({
     flexRow:{
         display:'flex',
         width:'100%',
-        flex:1,
         justifyContent:'center',
         alignItems:'center',
         gap:20
@@ -72,7 +71,18 @@ const useStyles=makeStyles({
     }
 })
 
-const EmergencyDetail = ({}) => {
+const EmergencyDetail = ({
+    submitHandler,              
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    isValid,
+    dirty,
+    touched,
+    values
+}) => {
   const classes=useStyles()
   const name=useSelector(state=>state.emp.name);
   const fatherName=useSelector(state=>state.emp.fatherName);
@@ -87,13 +97,66 @@ const EmergencyDetail = ({}) => {
        <Box component='h1' className={classes.title}>Emergency Details</Box>
        <Box component='div' className={classes.fields}>
            <Box className={classes.flexRow}>
-                <InputText placeholder={'Add Name of Kin'} setState={employeeAction.bloodGroupAction} title={'Blood Group'}/>
-                <InputNumber label={'Add Phone Number'}    setState={employeeAction.emergencyContactAction}  classes={classes} placeholder={'Emergency Contact'} />
+                <InputText 
+                   placeholder={'Add Blood Group'} 
+                    value={values.bloodGroup} 
+                    error={Boolean(touched.bloodGroup && errors.bloodGroup)} 
+                    helperText={touched.bloodGroup && errors.bloodGroup}  
+                    name="bloodGroup" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur} 
+                    title={'Blood Group'}
+                />
+                <InputNumber 
+                    label={'Add Phone Number'}
+                    value={values.emergencyContact} 
+                    error={Boolean(touched.emergencyContact && errors.emergencyContact)} 
+                    helperText={touched.emergencyContact && errors.emergencyContact}  
+                    name="emergencyContact" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}     
+                    classes={classes} 
+                    placeholder={'Emergency Contact'} 
+                />
            </Box>
-           <InputText placeholder={'Add Name of Kin'} setState={employeeAction.kinNameAction} title={'Next of Kin'}/>
+           <InputText 
+                placeholder={'Add Name of Kin'}  
+                value={values.kinname} 
+                error={Boolean(touched.kinname && errors.kinname)} 
+                helperText={touched.kinname && errors.kinname}  
+                name="kinname" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur} 
+                title={'Next of Kin'}
+           />
            <Box className={classes.flexRow}>
-                <InputText placeholder={'Relation'} setState={employeeAction.relationAction} title={'Add Relation '}/>
-                <InputNumber label={'Phone'} setState={employeeAction.relationContactNoAction} classes={classes} placeholder={'Add Phone Number'} />
+                <InputText 
+                    placeholder={'Relation'} 
+                    value={values.relation} 
+                    error={Boolean(touched.relation && errors.relation)} 
+                    helperText={touched.relation && errors.relation}  
+                    name="relation" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur} 
+                    title={'Add Relation '}
+                            
+                />
+                <InputNumber 
+                     label={'Phone'} 
+                     classes={classes} 
+                     placeholder={'Add Phone Number'} 
+                     value={values.relationContact} 
+                     error={Boolean(touched.relationContact && errors.relationContact)} 
+                     helperText={touched.relationContact && errors.relationContact}  
+                     name="relationContact" 
+                     touched={touched}
+                     handleChange={handleChange}
+                     handleBlur={handleBlur}     
+                />
            </Box>
 
        </Box>

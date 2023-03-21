@@ -39,18 +39,18 @@ const useStyles=makeStyles({
 
     }
 })
-const DatePickterUi = ({classes,title,setState,state}) => {
+const DatePickterUi = ({classes,title,value,name,handleChange,handleBlur,setFieldValue}) => {
  const dispatch=useDispatch();
  const classStyle=useStyles();
- const handleChange=(date)=>{
-    dispatch(setState(date.toISOString()));
- }
+//  const handleChange=(date)=>{
+//     dispatch(setState(date.toISOString()));
+//  }
  return (<>
     <Box component='div' className={classStyle.container}>
         <Typography component='h4' className={classStyle.label}>
             {title}
         </Typography>
-        <DatePicker onChange={handleChange}  className={classStyle.root}/>
+        <DatePicker onChange={(date)=>{console.log(date);setFieldValue('dob',date)}} value={value} name={name}  className={classStyle.root}/>
     </Box>
   </>)
 }

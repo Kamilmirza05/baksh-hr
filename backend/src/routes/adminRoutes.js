@@ -67,8 +67,6 @@ router.post('/create-employee',isAuth,multerUpload.single('employeePhoto'),valid
 // Edit Employee
 router.put('/edit-employee',multerUpload.single('employeePhoto'),EmployeeController.editEmployee);
 
-
-
 router.get('/salaryTypes',EmployeeController.salaryTypes);
 
 
