@@ -1,18 +1,15 @@
 const express=require('express');
-const app=express();
-const db=require('./src/untils/db');
 const sequelize = require('./src/untils/db');
 const User=require('./src/models/user');
 const Employee = require('./src/models/employee');
 const Role = require('./src/models/role');
 const Permission = require('./src/models/permission');
-const logger=require('./src/logs');
 const bodyParser=require('body-parser');
 const Manager = require('./src/models/manager');
-const salaryType=require('./src/models/salaryType');
 // .evn file get
 require('dotenv').config();
-console.log('hii')
+
+const app=express();
 
 // Routes
 const adminRoutes=require('./src/routes/adminRoutes');
@@ -30,6 +27,8 @@ const options={
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods':'GET, POST, PUT, DELETE'
 }
+//Middlewares
+app.use(express.static(path.join(__dirname,'./frontend/build')));
 app.use(cors(options))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
@@ -42,9 +41,9 @@ app.use('/',express.static(path.join(__dirname,'uploads', 'employees')))
 app.use('/api/admin',adminRoutes)
 app.use('/api',Api)
 
-// app.use("*",(req,res,next)=>{
-//   res.sendFile(path.join(__dirname,'../frontend/build'))
-// })
+app.use("*",function(req,res){
+  res.sendFile(path.join(__dirname,'../frontend/build'))
+})
 
 // RelationShips Role and Permissions
 Role.hasMany(User,
