@@ -56,7 +56,7 @@ const DownMenu = ({classes,icon,label,downArrow,droplabel,tab,settab,path}) => {
                     {droplabel?.length>0 && tab.length>0 &&
                           <List className={classStyle.nestedList}> 
                             {droplabel?.map((page)=>{
-                              return<NavLink  className={classStyle.childList} to='/addEmployee'>
+                              return<NavLink  className={classStyle.childList} to={page.path}>
                                 <ListItemButton className={classStyle.listItem}  style={{borderRadius:'10px'}}>
                                     {page.label}
                                 </ListItemButton>

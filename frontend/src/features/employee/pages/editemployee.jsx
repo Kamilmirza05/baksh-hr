@@ -1,5 +1,5 @@
 import { Formik, useFormik } from 'formik';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../../components/header/header'
 import Sidebar from '../../../components/sidebar/sidebar'
 import { makeStyles } from '@material-ui/core';
@@ -10,10 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmployeeThunk from '../../../redux/thunk/employeeThunk';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
-import { adminApi } from '../../../axios/axiosData';
+import { adminApi, publicApi } from '../../../axios/axiosData';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { DataGrid } from '@mui/x-data-grid';
+import GetEmployeeThunk from '../../../redux/thunk/fetchEmployeeThunk';
+import { useParams } from "react-router-dom";
+import dayjs from 'dayjs';
 
 
 const useStyles=makeStyles({
@@ -60,45 +63,56 @@ const useStyles=makeStyles({
 // });
 
 
-const Employee = () => {
+const EditEmployee = () => {
 
   const navigate=useNavigate();
   const [cookies] = useCookies(['token']);
   const classes=useStyles();
   const dispatch=useDispatch();
-  const name=useSelector(state=>state.emp.name);
-  const fatherName=useSelector(state=>state.emp.fatherName);
   const profilePic=useSelector(state=>state.emp.profilePic);
-  const dateofJoining=useSelector(state=>state.emp.dateofJoining);
-  const dob=useSelector(state=>state.emp.dob);
-  const gender=useSelector(state=>state.emp.gender);
-  const departmentId=useSelector(state=>state.emp.departmentId);
-  const designationId=useSelector(state=>state.emp.designationId);
-  const contactOne=useSelector(state=>state.emp.contactOne);
-  const contactTwo=useSelector(state=>state.emp.contactTwo);
-  const accountholderName=useSelector(state=>state.emp.accountholderName);
-  const accountNumber=useSelector(state=>state.emp.accountNumber);
-  const branchName=useSelector(state=>state.emp.branchName);
   // const accountNumber=useSelector(state=>state.emp.accountNumber);
-  const bankId=useSelector(state=>state.emp.bankId);
-  const employeeId=useSelector(state=>state.emp.employeeId);
-  const status=useSelector(state=>state.emp.status);
-  const salaryType=useSelector(state=>state.emp.salaryType);
-  const salary=useSelector(state=>state.emp.salary);
-  const bloodGroup=useSelector(state=>state.emp.bloodGroup);
-  const emergencyContact=useSelector(state=>state.emp.emergencyContact);
-  const kinname=useSelector(state=>state.emp.kinname);
-  const relation=useSelector(state=>state.emp.relation);
-  const relationContact=useSelector(state=>state.emp.relationContact);
-  const localAddress=useSelector(state=>state.emp.localAddress);
-  const permanentAddress=useSelector(state=>state.emp.permanentAddress);
-  const martialStatus=useSelector(state=>state.emp.martialStatus);
-  const nationality=useSelector(state=>state.emp.nationality);
-  const email=useSelector(state=>state.emp.email);
-  const password=useSelector(state=>state.emp.password);
-  const managerId=useSelector(state=>state.emp.managerId)
 
-  
+  const bankId=useSelector(state=>state.emp.bankId);
+  const [data,setdata]=useState({
+    email: '',
+    password:'',
+    name:'',
+    fatherName:'',
+    // profilePic:'',
+    dateofJoining:'',
+    dob:'',
+    gender:'',
+    departmentId:'',
+    designationId:'',
+    contactOne:'',
+    contactTwo:'',
+    accountholderName:'',
+    accountNumber:'',
+    branchName:'',
+    bankId:'',
+    employeeId:'',
+    status:'',
+    salaryType:'',
+    salary:'',
+    bloodGroup:'',
+    emergencyContact:'',
+    kinname:'',
+    relation:'',
+    relationContact:'',
+    localAddress:'',
+    permanentAddress:'',
+    martialStatus:'',
+    nationality:'',
+    managerId:'',
+  })
+  const params= useParams();
+
+
+
+ 
+ 
+
+
   const validationSchema=yup.object().shape({
     email: yup.string()
       .email('Please enter a valid email')
@@ -108,7 +122,7 @@ const Employee = () => {
       .required('Password is required'),
        name:yup.string().min(3,'name greater than 3 ').max(100,'name less than 100').required("name is required"),
        fatherName:yup.string().required("Name is Required").min(3,'fatherName greater than 3').max(100,'less than 100'),
-       profilePic:yup.object().optional('profile pic is required'),
+      //  profilePic:yup.object().required('profile pic is required'),
        dateofJoining:yup.date().required('Date of joinining is required'),
        dob:yup.date().required('Date of Birth is required'),
        gender:yup.string().required('Gender is required'),
@@ -170,19 +184,77 @@ const Employee = () => {
       managerId:'',
     },
     validateOnBlur:false,
+    // enableReinitialize: true,
     validateOnChange:false,
     onSubmit: values => {
       valuHandler(values)
-      // alert(JSON.stringify(values, null, 2));
     },
     validationSchema
    });
 
 
   useEffect(()=>{
-    const token=cookies.token;
+    const {token}=cookies;
+    const {employeeId}=params;
     dispatch(EmployeeThunk(token));
+
+    const FetchEmployee=async ()=>{
+      console.log(employeeId)
+      let response=await  axios.get(publicApi+`/editEmployee/${employeeId}`,{
+          headers: {
+              authorization: `Bearer ${token}`,
+          },
+      });
+      const data=response?.data?.employee;
+      console.log(data)
+      let {name,password,email,
+             fatherName,profilePhoto,
+             contactOne,contactTwo,
+             dob,
+             employee_company:{
+              managerId,
+              dateofJoining,
+              departmentId, 
+              designationId,
+              // employeeId,
+             },
+             localAddress,
+             kinname,
+             gender,
+             kinPhone,
+             nationality,
+             permanentAddress,
+             martialStatus,
+             relation,
+             employee_bank:{
+              holderName,
+              accountNumber,
+              bankId,
+              branch,
+              salaryType,
+              salary,
+             },
+             emergencyContact,
+             User:{
+              status
+             },
+             bloodGroup,
+            }=data;
+            console.log(data)
+            formik.setValues({name,email,fatherName,contactOne,contactTwo,
+                              localAddress,permanentAddress,nationality,
+                              martialStatus,accountholderName:holderName,
+                              accountNumber:accountNumber,bankId,branchName:branch,
+                              employeeId,departmentId,designationId,
+                              status,managerId,salary,salaryType,bloodGroup,emergencyContact,
+                              kinname,relation,relationContact:kinPhone,password,gender,
+                              dob:dayjs(dob),dateofJoining:dayjs(dateofJoining),
+                            })
+    }
+    FetchEmployee();
   },[])
+
+ 
 
   const valuHandler=(values)=>{
       const token=cookies.token;
@@ -262,14 +334,13 @@ const Employee = () => {
   }
 
 
-  console.log(formik)
   return (
     <Box component='div' className={classes.mainContainer}>
         <Box component='div' className={classes.sidebar}>
             <Sidebar/>
         </Box>
         <Box component='div'>
-            <Header heading={"Add Employee"}/>
+            <Header heading="Edit Employee"/>
             {/* <Box component='section' > */}
   
             {/* <Formik
@@ -352,4 +423,4 @@ const Employee = () => {
   )
 }
 
-export default Employee
+export default EditEmployee

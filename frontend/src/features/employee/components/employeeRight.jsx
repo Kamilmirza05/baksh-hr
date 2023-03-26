@@ -101,7 +101,6 @@ const status=[
   'inactive'
 ]
 const EmployeRight = ({
-  submitHandler,              
   errors,
   handleBlur,
   handleChange,
@@ -163,7 +162,17 @@ const EmployeRight = ({
         </Typography>
       </Box>
       <Box className={classes.innerContainer} component='div'>
-        {/* <InputText setState={employeeAction.employeeIdAction} placeholder={'Add Employee ID'} title={'Employee Id'}/> */}
+        <InputNumber
+             placeholder={'Add Employee ID'} 
+              value={values.employeeId} 
+              error={Boolean(touched.employeeId && errors.employeeId)} 
+              helperText={touched.employeeId && errors.employeeId}  
+              name="employeeId" 
+              label={'Empolyee Id'} 
+              touched={touched}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+        />
         <SelectUi 
            title={'Department'}  
            data={departments} 
@@ -194,7 +203,18 @@ const EmployeRight = ({
         />
 
         <Box className={classes.flexRow}>
-            <DatePickterUi title={'Date of Joining'} setState={employeeAction.dateofJoiningAction} state={dateofJoining} classes={classes}/>
+            <DatePickterUi 
+                 title={'Date of Joining'} 
+                 classes={classes}
+                 value={values.dateofJoining} 
+                 error={Boolean(touched.dateofJoining && errors.dateofJoining)} 
+                 helperText={touched.dateofJoining && errors.dateofJoining}  
+                 name="dateofJoining" 
+                 touched={touched}
+                 handleChange={handleChange}
+                 handleBlur={handleBlur} 
+                 setFieldValue={formik.setFieldValue}
+            />
             <SelectLocalUi 
                 title={'Status'} 
                 value={values.status} 

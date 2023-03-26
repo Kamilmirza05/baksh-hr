@@ -97,8 +97,8 @@ const Sidebar = () => {
        </Box>
        <Box className={classes.listContainer} component='div'>
          <List className={classes.menuList}>
-           <DownMenu label={"Dashboard"} icon={Dashboard} path={'/'} classes={classes}/>
-           <DownMenu label={"Employees"} droplabel={[{label:"Add Employee",path:'/AddEmployee'},{label:"Manage Employee",path:'/Employees'}]} icon={employee} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
+           <DownMenu label={"Dashboard"} icon={Dashboard} path={'/dashboard'} classes={classes}/>
+           <DownMenu label={"Employees"} droplabel={[{label:"Add Employee",path:'/add-employee'},{label:"Manage Employee",path:'/manage-employees'}]} icon={employee} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
            <DownMenu label={"Attendance"} icon={attendance} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Loan Management"} icon={loan} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Leaves"} icon={leave} classes={classes} downArrow={downArrow}/>
