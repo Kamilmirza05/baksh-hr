@@ -86,27 +86,26 @@ function getStyles(name,personName, theme) {
   };
 }
 
-export default function SelectUi({title,data=['ahmad','ali'],setState,state}) {
+export default function SelectUi({title,data=[],handleChange,name,value,error,helperText,handleBlur,placeholder}) {
   const classes=useStyles();
   const dispatch=useDispatch();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
-  const handleChange = (event,child) => {
-    const {
-      target: { value },
-    } = event; 
-      const id=child.props.id;
-      console.log(id)
-      dispatch(setState(id))
+  // const handleChange = (event,child) => {
+  //   const {
+  //     target: { value },
+  //   } = event; 
+  //     const id=child.props.id;
+  //     console.log(id)
 
 
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
+  //   setPersonName(
+  //     // On autofill we get a stringified value.
+  //     typeof value === 'string' ? value.split(',') : value,
+  //   );
+  // };
+  console.log(value)
   return (
       <FormControl sx={{ width: '100%'}} >
         <Typography component='h4' className={classes.label}>
@@ -115,17 +114,20 @@ export default function SelectUi({title,data=['ahmad','ali'],setState,state}) {
         <Select
           className={classes.root}
           displayEmpty
-          value={personName}
+          name={name}
+          value={value}
+          error={error}
+          onBlur={handleBlur}
           onChange={handleChange}
           input={<OutlinedInput />}
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}
+          placeholder={placeholder}
         >
-           {data.map((list,id) => (
+          {data.map((list,id) => (
             <MenuItem
               key={id}
-              value={list.label}
-              id={list.id}
+              value={list.id}
               style={getStyles(list.label, personName, theme)}
             >
               {list.label}

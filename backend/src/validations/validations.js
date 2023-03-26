@@ -158,6 +158,9 @@ exports.validLogin=[
 ];
 
 // Close Validation Login
+exports.permission=[
+
+]
 
 
 

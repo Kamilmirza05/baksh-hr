@@ -27,22 +27,38 @@ const useStyles=makeStyles({
     width:'100%'
 },
 })
-const MultiLineText = ({label,placeholder,setState}) => {
+const MultiLineText = (props) => {
     const classOwn=useStyles();
     const dispatch=useDispatch();
+    const {
+      placeholder,
+      title,
+      name,
+      label,
+      helperText, 
+      handleChange, 
+      value, 
+      error,
+      handleBlur
+  }=props
 
-    const handleChange=(e)=>{
-      dispatch(setState(e.target.value));
-    }
+
   return (
     <FormControl >
       <Typography component='h4' className={classOwn.label}>{label}</Typography>
-      <OutlinedInput placeholder={placeholder} 
+      <OutlinedInput 
+              placeholder={placeholder} 
               multiline
               rows={4}
-              onBlur={handleChange}
+              onBlur={(e)=>{
+                handleBlur(e);
+                handleChange(e);
+              }}
               className={classOwn.root}
-              defaultValue=""
+              name={name}
+              defaultValue={value}
+              helperText={helperText}  
+              error={error}
       />
     </FormControl>
   )

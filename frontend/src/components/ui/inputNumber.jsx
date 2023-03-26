@@ -37,21 +37,53 @@ const useStyles=makeStyles({
         color:'#868B90'
     },
     container:{
-        width:'100%'
+        width:'100%',
+        marginTop:'0.7rem'
     }
 })
-const InputText = ({placeholder,label,setState}) => {
+const InputText = (props) => {
+    const {
+        placeholder,
+        title,
+        name,
+        label,
+        helperText, 
+        handleChange, 
+        value, 
+        error,
+        handleBlur
+    }=props
+
   const dispatch=useDispatch();
   const classes=useStyles();
 
-  const handleChange=(e)=>{
-    dispatch(setState(e.target.value))
-  }
+//   const handleChange=(e)=>{
+//     dispatch(setState(e.target.value))
+//   }
   return (<Box className={classes.container}  component='div'>
             <Typography component='h4' className={classes.label}>
                 {label}
             </Typography>
-            <TextField type='number' onBlur={handleChange}  color='primary' variant='outlined' placeholder={placeholder} className={classes.root}/>
+            <TextField 
+               type='number'   
+               color='primary' 
+               variant='outlined' 
+               placeholder={placeholder} 
+
+                defaultValue={value}
+                helperText={helperText}  
+                error={error}
+                InputProps={{
+                    classes:{input: classes.input}
+                }}
+                onBlur={(e)=>{
+                    handleBlur(e);
+                    handleChange(e);
+                }}
+                onMouseLeave={handleChange}    
+                name={name}
+                className={classes.root}
+            />
     </Box>)
 }
 

@@ -100,7 +100,17 @@ const status=[
   'active',
   'inactive'
 ]
-const EmployeRight = ({submitHandler}) => {
+const EmployeRight = ({
+  submitHandler,              
+  errors,
+  handleBlur,
+  handleChange,
+  handleSubmit,
+  isSubmitting,
+  isValid,
+  formik,
+  touched,
+  values}) => {
   const dispatch=useDispatch();
   const classes=useStyles();
   const departmentId=useSelector(state=>state.emp.departmentId);
@@ -108,20 +118,24 @@ const EmployeRight = ({submitHandler}) => {
   const designations=useSelector(state=>state.emp.designations);
   const dateofJoining=useSelector(state=>state.emp.dateofJoining);
   const managers=useSelector(state=>state.emp.managers);
-  console.log(managers)
+
 
   useEffect(()=>{
     const getDesignation=async ()=>{
-      const response=await axios.get(adminApi+`/designation/${departmentId}`)
+      const response=await axios.get(adminApi+`/designation/${values.departmentId}`)
       dispatch(employeeAction.deisgnationsAction(response?.data?.designations))
       console.log(response)
     }
 
-    const timerOne=setTimeout(getDesignation,1000);
+    let timerOne;
+    if(parseInt(values.departmentId)>0){
+      timerOne=setTimeout(getDesignation,1000);
+    }
+
     return ()=>{
       clearTimeout(timerOne)
     }
-  },[departmentId])
+  },[values.departmentId])
 
   const Country=[
     'pakistan',
@@ -140,6 +154,7 @@ const EmployeRight = ({submitHandler}) => {
    
   }
 
+  console.log(managers)
   return (
     <Box className={classes.container} component='div'>
       <Box component='div'>
@@ -148,32 +163,105 @@ const EmployeRight = ({submitHandler}) => {
         </Typography>
       </Box>
       <Box className={classes.innerContainer} component='div'>
-        <InputText setState={employeeAction.employeeIdAction} placeholder={'Add Employee ID'} title={'Employee Id'}/>
-        <SelectUi title={'Department'}  data={departments} handleChange={deparmentHandler} setState={employeeAction.departmentAction} state={departmentId} classes={classes} use={'fetch'}/>
-        <SelectUi title={'Designation'} data={designations} setState={employeeAction.designationAction} classes={classes}/>
+        {/* <InputText setState={employeeAction.employeeIdAction} placeholder={'Add Employee ID'} title={'Employee Id'}/> */}
+        <SelectUi 
+           title={'Department'}  
+           data={departments} 
+           value={values.departmentId} 
+           error={Boolean(touched.departmentId && errors.departmentId)} 
+           helperText={touched.departmentId && errors.departmentId}  
+           name="departmentId" 
+           touched={touched}
+           handleChange={handleChange}
+           handleBlur={handleBlur}
+           placeholder={"Select the Department"}   
+           classes={classes} 
+           use={'fetch'}
+        />
+        
+        <SelectUi 
+            title={'Designation'} 
+            data={designations}  
+            classes={classes}
+            value={values.designationId} 
+            error={Boolean(touched.designationId && errors.designationId)} 
+            helperText={touched.designationId && errors.designationId}  
+            name="designationId" 
+            touched={touched}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            placeholder={"Select the Department"}   
+        />
+
         <Box className={classes.flexRow}>
-        {/* departments */}
             <DatePickterUi title={'Date of Joining'} setState={employeeAction.dateofJoiningAction} state={dateofJoining} classes={classes}/>
-            <SelectLocalUi title={'Status'} setState={employeeAction.statusAction} data={status} classes={classes}/>
+            <SelectLocalUi 
+                title={'Status'} 
+                value={values.status} 
+                error={Boolean(touched.status && errors.status)} 
+                helperText={touched.status && errors.status}  
+                name="status" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                placeholder={"Select the Department"}   
+                data={status} 
+                classes={classes}
+              />
         </Box>
-        <SelectUi title={'Manager'} data={managers} setState={employeeAction.managerAction} classes={classes}/>
-
-
-
+        <SelectUi title={'Manager'} 
+                  data={managers} 
+                  value={values.managerId} 
+                  error={Boolean(touched.managerId && errors.managerId)} 
+                  helperText={touched.managerId && errors.managerId}  
+                  name="managerId" 
+                  touched={touched}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  placeholder={"Select the Manager"}   
+                  classes={classes}
+        />
         {/* <Box className={classes.flexRow}    >
             <SelectUi title={'Nationality'} data={Gender} classes={classes}/>
             <SelectUi title={'Marital Status'} data={Country} classes={classes}/>
         </Box> */}
         <Box component='hr' className={classes.border}></Box>
-        <EmployeeFinancial/>
+        <EmployeeFinancial
+              errors={errors}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
+              isValid={isValid}
+              values={values}
+              touched={touched}
+        />
         <Box component='hr' className={classes.border}></Box>
 
-        <EmergencyDetail/>
-        <AccountLogin/>
+        <EmergencyDetail
+              errors={errors}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
+              isValid={isValid}
+              values={values}
+              touched={touched}
+        />
+        <AccountLogin 
+              errors={errors}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
+              isValid={isValid}
+              values={values}
+              touched={touched}
+        />
 
         <Box component='div' className={classes.flexEnd}>
              <Button>Save as draft</Button>
-             <Button className={classes.subBtn} onClick={submitHandler}>Submit</Button>
+             <Button className={classes.subBtn} onClick={formik.handleSubmit} type="submit">Submit</Button>
            </Box>
       </Box>
     </Box>

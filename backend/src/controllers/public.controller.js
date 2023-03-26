@@ -24,3 +24,4 @@ exports.banks=async(req,res,next)=>{
         return Error(req,res,error);   
     }
 }
+

@@ -75,22 +75,22 @@ function getStyles(name,personName, theme) {
   };
 }
 
-export default function SelectLocalUi({title,data,setState}) {
+export default function SelectLocalUi({title,data,handleChange,name,value,error,helperText,handleBlur,placeholder}) {
   const classes=useStyles();
   const dispatch=useDispatch();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
-  const handleChange = (event,child) => {
-    const {
-      target: { value },
-    } = event;
-        dispatch(setState(value));
-        setPersonName(
-        // On autofill we get a stringified value.
-        typeof value === 'string' ? value.split(',') : value,
-        );
-  };
+  // const handleChange = (event,child) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //       dispatch(setState(value));
+  //       setPersonName(
+  //       // On autofill we get a stringified value.
+  //       typeof value === 'string' ? value.split(',') : value,
+  //       );
+  // };
 
   return (
       <FormControl sx={{ width: '100%'}} >
@@ -99,9 +99,12 @@ export default function SelectLocalUi({title,data,setState}) {
         </Typography>
         <Select
           className={classes.root}
+          name={name}
           displayEmpty
-          value={personName}
+          value={value}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={error}
           input={<OutlinedInput />}
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}

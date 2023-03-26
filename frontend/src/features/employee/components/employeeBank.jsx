@@ -8,14 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { employeeAction } from '../../../redux/slice/employeeSlice';
 
 
-const BankName=[
-    'UBL',
-    'HBL'
-]; 
-const BranchName=[
-    'Garden Town',
-    "Bahari Tow"
-]
+
 const useStyles=makeStyles({
     container:{
         position:'relative',
@@ -46,7 +39,15 @@ const useStyles=makeStyles({
     }
 })
 
-const EmployeeBank = ({parentClass}) => {
+const EmployeeBank = ({parentClass,errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    isValid,
+    dirty,
+    touched,
+    values}) => {
   const classes=useStyles()
   const dispatch=useDispatch();
   const banks=useSelector(state=>state.emp.banks)
@@ -57,11 +58,55 @@ const EmployeeBank = ({parentClass}) => {
     <Box component='div' className={classes.container}>
        <Box component='h1' className={classes.title}>Bank Details</Box>
        <Box component='div' className={classes.fields}>
-           <InputText placeholder={'Add Account Holder Name'} setState={employeeAction.accountHolderAction} title={'Account Holder Name'}/>
-           <InputNumber label={'Account Holder Number'}         setState={employeeAction.accountNumberAction} classes={classes} placeholder={'Add Account Number'} />
+           <InputText 
+                    placeholder={'Add Account Holder Name'} 
+                    value={values.accountholderName} 
+                    error={Boolean(touched.accountholderName && errors.accountholderName)} 
+                    helperText={touched.accountholderName && errors.accountholderName}  
+                    name="accountholderName" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur} 
+                    title={'Account Holder Name'}
+            />
+            {/* accountNumber */}
+           <InputNumber 
+                  label={'Account Holder Number'}         
+                  value={values.accountNumber} 
+                    error={Boolean(touched.accountNumber && errors.accountNumber)} 
+                    helperText={touched.accountNumber && errors.accountNumber}  
+                    name="accountNumber" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}  
+                  classes={classes} 
+                  placeholder={'Add Account Number'} 
+
+            />
            <Box className={parentClass.flexRow}>
-                <SelectUi    title={'Add Bank Name'} data={banks} setState={employeeAction.BankAction} state={bankId} classes={classes}/>
-                <InputText placeholder={'Branch Name'} setState={employeeAction.branchNameAction} title={'Add Branch Name'}/>
+                <SelectUi    
+                     title={'Add Bank Name'} 
+                     data={banks} 
+                     classes={classes}
+                     value={values.bankId} 
+                     error={Boolean(touched.bankId && errors.bankId)} 
+                     helperText={touched.bankId && errors.bankId}  
+                     name="bankId" 
+                     touched={touched}
+                     handleChange={handleChange}
+                     handleBlur={handleBlur}
+                />
+                <InputText 
+                    placeholder={'Branch Name'} 
+                    title={'Add Branch Name'}
+                    value={values.branchName} 
+                    error={Boolean(touched.branchName && errors.branchName)} 
+                    helperText={touched.branchName && errors.branchName}  
+                    name="branchName" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}  
+                />
 
                 {/* <SelectUi title={'Add Branch Name'} data={BranchName} classes={classes}/> */}
            </Box>

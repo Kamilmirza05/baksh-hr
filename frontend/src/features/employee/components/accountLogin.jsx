@@ -1,6 +1,6 @@
 import { Box} from '@mui/material'
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, TextField } from '@material-ui/core'
 import InputText from '../ui/input'
 import InputNumber from '../../../components/ui/inputNumber';
 import SelectUi from '../../../components/ui/select';
@@ -47,17 +47,49 @@ const useStyles=makeStyles({
     }
 })
 
-const AccountLogin = ({parentClass}) => {
+const AccountLogin = ({
+    parentClass,
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    isValid,
+    dirty,
+    touched,
+    values}) => {
   const classes=useStyles()
   const dispatch=useDispatch();
   const salaryTypes=useSelector(state=>state.emp.salaryTypes);
-
+  console.log('visited',values)
   return (
     <Box component='div' className={classes.container}>
        <Box component='h1' className={classes.title}>Account Login</Box>
        <Box component='div' className={classes.fields}>
-           <InputText placeholder={'Email'} setState={employeeAction.emailAction} title={'Add the Email'}/> 
-           <InputText placeholder={'Password'} setState={employeeAction.passwordAction} title={'Add the Password'}/> 
+           <InputText 
+                placeholder={'Email'}            
+                value={values.email} 
+                error={Boolean(touched.email && errors.email)} 
+                helperText={touched.email && errors.email}  
+                name="email" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur} 
+                title={'Add the Email'}
+           /> 
+
+           <InputText
+                placeholder={'Password'}
+                value={values.password} 
+                error={Boolean(touched.password && errors.password)} 
+                helperText={touched.password && errors.password}  
+                name="password" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur}   
+                    //   setState={employeeAction.passwordAction} 
+                title={'Add the Password'}        
+            /> 
 
             {/* <SelectLocalUi    title={'Select Salary Type'} setState={employeeAction.salaryTypeAction} data={salaryTypes} classes={classes}/> */}
             {/* <InputNumber label={'Salary'} classes={classes} setState={employeeAction.salaryAction} placeholder={'Add Salary'} /> */}

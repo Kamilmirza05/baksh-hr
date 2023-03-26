@@ -12,6 +12,11 @@ var bcrypt = require('bcryptjs');
 const EmployeeBank = require("../models/empBank");
 const EmployeeCompany = require("../models/empCompany");
 const SalaryType = require("../models/salaryType");
+const Designation = require("../models/designation");
+const Department = require("../models/department");
+const { employeesDto } = require("../dto/dto");
+const { response } = require("express");
+const { Sequelize, Op } = require("sequelize");
 
 // const InsertRole=async (roleName)=>{
 //     const response=await Role.create({roleName:roleName});
@@ -69,6 +74,7 @@ const createEmployee=async (req,res,
         const employee=await Employee.create({
             id:employeeId,
             name,
+            password,
             email:email,
             fatherName,
             dob:dob,
@@ -117,7 +123,11 @@ const createEmployee=async (req,res,
         return employeeCompany;
 }
 
+const getEmployee=async (employeeId)=>{
 
+    const employee= await Employee.findOne({where:{id:employeeId},include:[{model:User},{model:EmployeeBank},{model:EmployeeCompany}]})
+    return employee;
+}
 
 const editEmployee=async (req,res,
     {name,fatherName,dob,gender,contactOne,contactTwo,
@@ -219,4 +229,29 @@ const salaryType=async ()=>{
     return salaries;
 }
 
-module.exports={createEmployee,editEmployee,salaryType};
+const getEmployees=async ()=>{
+    let response=await Employee.findAll({include:[{model:User,attributes:['status']},{model:EmployeeCompany,attributes:['departmentId','designationId'],include:[{model:Designation,attributes:['designation']},{model:Department,attributes:['department']}]}],attributes:['name','email','id','profilePhoto']});
+    const employees=response.map((data)=>{
+        return {id:data.id,name:data?.name,email:data?.email,profile:data?.profilePhoto?.filename,status:data?.User?.status,department:data?.employee_company?.department?.department,designation:data?.employee_company?.designation?.designation}
+    })
+    return employees;
+}
+
+const searchEmployees=async (search)=>{
+    let response=await 
+        Employee.findAll({
+        where:{
+            [Op.or]: [
+                {name: {[Op.like]:"%"+search+"%"}},
+                {email:{[Op.like]:"%"+search+"%"}},
+              ]
+        },
+        include:[{model:User,attributes:['status']},{model:EmployeeCompany,attributes:['departmentId','designationId'],include:[{model:Designation,attributes:['designation']},{model:Department,attributes:['department']}]}],attributes:['name','email','id','profilePhoto']});
+
+    const employees=response.map((data)=>{
+        return {id:data.id,name:data?.name,email:data?.email,profile:data?.profilePhoto?.filename,status:data?.User?.status,department:data?.employee_company?.department?.department,designation:data?.employee_company?.designation?.designation}
+    })
+    return employees;
+}
+
+module.exports={createEmployee,editEmployee,salaryType,getEmployee,getEmployees,searchEmployees};

@@ -47,7 +47,16 @@ const useStyles=makeStyles({
     }
 })
 
-const EmployeeFinancial = ({parentClass}) => {
+const EmployeeFinancial = ({parentClass,
+    submitHandler,              
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    isValid,
+    touched,
+    values}) => {
   const classes=useStyles()
   const dispatch=useDispatch();
   const salaryTypes=useSelector(state=>state.emp.salaryTypes);
@@ -57,8 +66,31 @@ const EmployeeFinancial = ({parentClass}) => {
        <Box component='h1' className={classes.title}>Financial Details</Box>
        <Box component='div' className={classes.fields}>
            {/* <InputText placeholder={'Add Account Holder Name'} title={'Account Holder Name'}/> */} 
-            <SelectLocalUi    title={'Select Salary Type'} setState={employeeAction.salaryTypeAction} data={salaryTypes} classes={classes}/>
-            <InputNumber label={'Salary'} classes={classes} setState={employeeAction.salaryAction} placeholder={'Add Salary'} />
+            <SelectLocalUi    
+                    title={'Select Salary Type'}  
+                    data={salaryTypes} 
+                    classes={classes}
+                    value={values.salaryType} 
+                    error={Boolean(touched.salaryType && errors.salaryType)} 
+                    helperText={touched.salaryType && errors.salaryType}  
+                    name="salaryType" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    placeholder={"Select the Department"}   
+            />
+            <InputNumber 
+                label={'Salary'} 
+                classes={classes}  
+                value={values.salary} 
+                error={Boolean(touched.salary && errors.salary)} 
+                helperText={touched.salary && errors.salary}  
+                name="salary" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur}     
+                placeholder={'Add Salary'} 
+            />
        </Box>
     </Box>
   )

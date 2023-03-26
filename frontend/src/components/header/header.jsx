@@ -43,7 +43,7 @@ const Header = () => {
   return (
     <Box component='div' className={classes.mainContainer}>
       <Box component='div' className={classes.pageName}>
-        Loan Management
+        Add Employee
       </Box>
       <Box component='div' className={classes.pageName}>
          {/* <Button> */}

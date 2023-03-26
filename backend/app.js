@@ -34,6 +34,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
 // app.use(express.static(path.join(__dirname,"../frontend/build")))
 // app.use(express.urlencoded())
+app.use('/',express.static(path.join(__dirname,'uploads', 'employees')))
 
 
 
