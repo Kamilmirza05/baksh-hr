@@ -69,17 +69,14 @@ const InputText = (props) => {
                color='primary' 
                variant='outlined' 
                placeholder={placeholder} 
-
-                defaultValue={value}
+                value={value}
                 helperText={helperText}  
                 error={error}
                 InputProps={{
                     classes:{input: classes.input}
                 }}
-                onBlur={(e)=>{
-                    handleBlur(e);
-                    handleChange(e);
-                }}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 onMouseLeave={handleChange}    
                 name={name}
                 className={classes.root}

@@ -50,13 +50,11 @@ const MultiLineText = (props) => {
               placeholder={placeholder} 
               multiline
               rows={4}
-              onBlur={(e)=>{
-                handleBlur(e);
-                handleChange(e);
-              }}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={value}
               className={classOwn.root}
               name={name}
-              defaultValue={value}
               helperText={helperText}  
               error={error}
       />

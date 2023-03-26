@@ -84,19 +84,17 @@ const InputText = (props) => {
                 {title}
             </Typography>
             <TextField 
-                defaultValue={value}
                 helperText={helperText}  
                 error={error}
                 InputProps={{
                     classes:{input: classes.input}
                 }}
+                value={value}
                 type='text' 
                 color='primary' 
-                variant='outlined' 
-                onBlur={(e)=>{
-                    handleChange(e);
-                    handleBlur(e);
-                }}
+                variant='outlined'
+                onChange={handleChange} 
+                onBlur={handleBlur}
                 name={name}
                 id={name}
                 placeholder={placeholder} 

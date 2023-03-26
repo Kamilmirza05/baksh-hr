@@ -8,7 +8,7 @@ const useStyles=makeStyles({
     mainContainer:{
         backgroundColor:'#FFFFFF',
         paddingTop:'1rem',
-        paddingLeft:'0.8rem',
+        paddingLeft:'0rem',
         display:'flex',
         flexDirection:'row',
         justifyContent:'space-between',
@@ -38,12 +38,12 @@ const useStyles=makeStyles({
   }
 })
 
-const Header = () => {
+const Header = ({heading}) => {
     const classes=useStyles();
   return (
     <Box component='div' className={classes.mainContainer}>
       <Box component='div' className={classes.pageName}>
-        Add Employee
+        {heading}
       </Box>
       <Box component='div' className={classes.pageName}>
          {/* <Button> */}

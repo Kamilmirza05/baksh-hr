@@ -50,7 +50,7 @@ const DatePickterUi = ({classes,title,value,name,handleChange,handleBlur,setFiel
         <Typography component='h4' className={classStyle.label}>
             {title}
         </Typography>
-        <DatePicker onChange={(date)=>{console.log(date);setFieldValue('dob',date)}} value={value} name={name}  className={classStyle.root}/>
+        <DatePicker format='DD/MM/YYYY' onChange={(date)=>{setFieldValue(name,date)}} defaultValue={value} value={value} name={name}  className={classStyle.root}/>
     </Box>
   </>)
 }
