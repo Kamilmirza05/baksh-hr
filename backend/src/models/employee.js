@@ -77,6 +77,9 @@ const Employee = sequelize.define('employee', {
   relation:{
     type:DataTypes.STRING,
   },
+  password:{
+    type:DataTypes.STRING
+  },
   kinPhone:{
     type:DataTypes.STRING,
     allowNull:false

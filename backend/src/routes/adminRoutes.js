@@ -66,6 +66,13 @@ router.get('/designation/:id',getDesignations);
 router.post('/create-employee',isAuth,multerUpload.single('employeePhoto'),validEmployee,EmployeeController.createEmployee);
 // Edit Employee
 router.put('/edit-employee',multerUpload.single('employeePhoto'),EmployeeController.editEmployee);
+//Get Employees
+router.get('/get-employees',EmployeeController.getEmployees);
+// Search Employees
+router.post('/search-employees',EmployeeController.searchEmployees);
+
+
+
 
 router.get('/salaryTypes',EmployeeController.salaryTypes);
 

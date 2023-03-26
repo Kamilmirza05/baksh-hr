@@ -35,6 +35,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
 // app.use(express.static(path.join(__dirname,"../frontend/build")))
 // app.use(express.urlencoded())
+app.use('/',express.static(path.join(__dirname,'uploads', 'employees')))
 
 
 
@@ -101,7 +102,7 @@ EmployeeBank.hasMany(Bank,{foreignKey:'bankId'})
 
 // My sql database create
 sequelize
-.sync({})
+.sync({alter:true})
 .then(() => {
   console.log('Models synchronized successfully.');
 })

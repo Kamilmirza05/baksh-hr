@@ -25,4 +25,15 @@ const LoginDto=(data)=>{
 }
 
 
-module.exports={insertRoleDto,signupDto,LoginDto}
+const employeesDto=(data)=>{
+    console.log(data)
+    return {
+        name:data?.name,
+        email:data?.email,
+        id:data?.id,
+        status:data?.User?.status
+    }
+}
+
+
+module.exports={insertRoleDto,signupDto,LoginDto,employeesDto}

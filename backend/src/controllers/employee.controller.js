@@ -1,6 +1,6 @@
 const Employee=require('../services/employee.service');
 
-exports.createEmployee=async (req,res,next)=>{
+const createEmployee=async (req,res,next)=>{
     console.log('hit...')
     try {
         const response=await Employee.createEmployee(req,res,req.body);
@@ -15,7 +15,7 @@ exports.createEmployee=async (req,res,next)=>{
 
 
 
-exports.editEmployee=async (req,res,next)=>{
+ const editEmployee=async (req,res,next)=>{
     try {
         const response=await Employee.editEmployee(req,res,req.body);
         res.json({msg:"Employee Successfully edit",flag:true,response:response})
@@ -26,7 +26,7 @@ exports.editEmployee=async (req,res,next)=>{
 
 }
 
-exports.salaryTypes=async (req,res,next)=>{
+const salaryTypes=async (req,res,next)=>{
 
     try {
         let response=await Employee.salaryType();
@@ -39,3 +39,38 @@ exports.salaryTypes=async (req,res,next)=>{
         return Error(req,res,error);
     }
 }
+
+
+const getEmployee=async (req,res,next)=>{
+    const {employeeId}=req.params;
+
+    try {
+        let response=await Employee.getEmployee(employeeId);
+        res.json({msg:"Salary Succefully Fetched",flag:true,employee:response})
+
+    } catch (error) {
+        return Error(req,res,error);
+    }
+}
+
+const getEmployees=async (req,res,next)=>{
+    try {
+        let response=await Employee.getEmployees();
+        await res.json({msg:"Employees List Succefully Fetched",flag:true,employees:response})
+    } catch (error) {
+        return Error(req,res,error);
+    }
+}
+
+const searchEmployees=async(req,res,next)=>{
+    const {search}=req.body;
+    console.log(search)
+    try {
+        let response=await Employee.searchEmployees(search);
+        await res.json({msg:"Search Employee Successfully",flag:true,employees:response})
+    } catch (error) {
+        return Error(req,res,error);
+    }
+}
+
+module.exports={getEmployees,getEmployee,salaryTypes,createEmployee,editEmployee,searchEmployees}
