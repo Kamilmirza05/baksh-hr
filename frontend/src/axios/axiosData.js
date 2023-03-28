@@ -1,9 +1,9 @@
-const url="https://baksh-hr-production.up.railway.app"
+const url="http://localhost:8000"
 
-
-const publicApi="https://baksh-hr-production.up.railway.app/api"
+// "http//localhost:8000"
+const publicApi="http://localhost:8000/api"
 // "https://baksh-hr-production.up.railway.app/api";
-const adminApi="https://baksh-hr-production.up.railway.app/api/admin"
+const adminApi="http://localhost:8000/api/admin"
 // "https://baksh-hr-production.up.railway.app/api/admin";
 
 

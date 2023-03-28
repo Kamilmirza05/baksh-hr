@@ -50,7 +50,7 @@ const useStyles=makeStyles({
         display:'flex',
         width:'100%',
         justifyContent:'center',
-        alignItems:'center',
+        alignItems:'start',
         gap:20
     },
     subBtn:{

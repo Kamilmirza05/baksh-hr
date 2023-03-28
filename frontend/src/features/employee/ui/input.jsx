@@ -11,6 +11,13 @@ const useStyles=makeStyles({
         // outline:'none'
     },
     root: {
+        fontFamily: 'Poppins , sans-serif',
+        '&.css-1u3bzj6-MuiFormControl-root-MuiTextField-root':{
+          height:'42px',
+        },
+        "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root":{
+            height:'100%',
+        },
         cursor:'pointer',
         input:{
             '&::placeholder': {
@@ -30,7 +37,7 @@ const useStyles=makeStyles({
               borderColor: '#E1E1E1',
             },
             '&:hover fieldset': {
-              borderColor: '#868B90',
+              borderColor: '#C49A50',
             },
             '&.Mui-focused fieldset': {
               borderColor: '#C49A50',

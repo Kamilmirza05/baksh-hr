@@ -71,7 +71,7 @@ const EmployeeBank = ({parentClass,errors,
             />
             {/* accountNumber */}
            <InputNumber 
-                  label={'Account Holder Number'}         
+                  label={'Account Number'}         
                   value={values.accountNumber} 
                     error={Boolean(touched.accountNumber && errors.accountNumber)} 
                     helperText={touched.accountNumber && errors.accountNumber}  
