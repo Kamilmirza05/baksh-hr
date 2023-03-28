@@ -7,6 +7,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Box, makeStyles } from '@material-ui/core';
 import { Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import Dropdown from '../../images/employee/drop.svg';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -44,6 +45,28 @@ const useStyles=makeStyles({
 
   },
   root: {
+
+      '&.Mui-focusVisible':{
+        borderColor: '#C49A50',
+
+      },
+      '&.Mui-selected':{
+        borderColor: '#C49A50',
+      },
+      '&:hover fieldset': {
+        borderColor: '#C49A50',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#C49A50',
+      },
+
+     '& .css-10q54uo-MuiSelect-icon':{
+      top:'0.3rem',
+      },
+      '& .css-3qbkez-MuiSelect-icon':{
+        top:'0.3rem',
+      },
+      height:'42px',
       '& .MuiOutlinedInput-root': {
           '& fieldset': {
             borderColor: '#E1E1E1',
@@ -61,6 +84,15 @@ const useStyles=makeStyles({
       },
       width:'100%'
   },
+  select:{
+    '& .MuiSelect-icon': {
+      // top: 'calc(50% - 12px)',
+      // position: 'absolute',
+      // background: 'blue',
+      // borderRadius: '8px',
+  
+    },
+  },
   flexRow:{
       display:'flex',
       width:'100%',
@@ -74,7 +106,13 @@ const useStyles=makeStyles({
     letterSpacing: '-0.02em',
     textAlign: 'left',
     color:'#868B90'
-},
+  },
+  dropIconContainer:{
+    background: '#FCFCFC',
+    borderRadius: '8px',
+    width:'32px',
+    height:'32px'
+  }
 })
 
 function getStyles(name,personName, theme) {
@@ -112,10 +150,31 @@ export default function SelectUi({title,data=[],handleChange,name,value,error,he
             {title}
         </Typography>
         <Select
-          className={classes.root}
+          className={`${classes.root} ${classes.select}`}
           displayEmpty
           name={name}
           value={value}
+          IconComponent={(props)=>(
+            <Box {...props} component='div' style={{      
+                  width: '32px',
+                  height: '32px',
+                  display:'flex',
+                  justifyContent:'center',
+                  alignItems:'center',
+                  background: '#FCFCFC',
+                  borderRadius: '8px',
+            }}>
+             <img    
+             style={{
+              pointerEvents: 'none',
+              height:'6px',
+              widht:'12px',
+             }}
+             src={Dropdown}
+
+             />
+            </Box>
+          )}
           error={error}
           onBlur={handleBlur}
           onChange={handleChange}
@@ -128,7 +187,8 @@ export default function SelectUi({title,data=[],handleChange,name,value,error,he
             <MenuItem
               key={id}
               value={list.id}
-              style={getStyles(list.label, personName, theme)}
+              style={{textTransform: 'capitalize'}}
+              // style={getStyles(list.label, personName, theme)}
             >
               {list.label}
             </MenuItem>

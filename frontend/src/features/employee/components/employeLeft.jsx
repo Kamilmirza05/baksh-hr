@@ -59,7 +59,7 @@ const useStyles=makeStyles({
         display:'flex',
         width:'100%',
         justifyContent:'center',
-        alignItems:'center',
+        // alignItems:'center',
         gap:20
     },
     border:{
@@ -117,7 +117,7 @@ const EmployeLeft = ({
         <FileInput state={profilePic} setState={employeeAction.profileAction}/>
         <InputText 
             placeholder={'Add Full name'} 
-            title={'name'} 
+            title={'Name'} 
             value={values.name} 
             error={Boolean(touched.name && errors.name)} 
             helperText={touched.name && errors.name}  

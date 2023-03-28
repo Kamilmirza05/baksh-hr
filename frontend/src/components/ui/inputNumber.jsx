@@ -8,7 +8,29 @@ const useStyles=makeStyles({
 
         // outline:'none'
     },
+
+     "&.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input":{
+         height:'100%',
+     },
     root: {
+        '&.css-1u3bzj6-MuiFormControl-root-MuiTextField-root':{
+            height:'42px',
+         },
+         "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root":{
+            height:'100%',
+         },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#E1E1E1',
+            },
+            '&:hover fieldset': {
+              borderColor: '#C49A50',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#C49A50',
+            },
+        },
+
         [`& fieldset`]: {
             border: '1px solid #E1E1E1',
           borderRadius: "10px !important",
@@ -38,7 +60,6 @@ const useStyles=makeStyles({
     },
     container:{
         width:'100%',
-        marginTop:'0.7rem'
     }
 })
 const InputText = (props) => {

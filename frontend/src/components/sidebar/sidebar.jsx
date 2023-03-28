@@ -56,20 +56,7 @@ const useStyles = makeStyles({
         flexDirection:'row',
         justifyContent:'center',
     },
-    list:{
-        cursor:'pointer',
-        //styleName: 14 B;
-        fontFamily: 'Poppins',
-        fontSize: '14px',
-        fontWeight: 600,
-        lineHeight: '21px',
-        letterSpacing: '-0.02em',
-        textAlign: 'left',
-        gap:'0.8rem',
-        padding:'12px, 11px, 12px, 11px',
-        width:'100%',
-        justifyContent:'center',
-    },
+
     menuListbtn:{
         borderRadius:'10px',
     },

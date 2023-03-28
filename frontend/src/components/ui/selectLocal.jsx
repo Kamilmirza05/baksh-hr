@@ -7,6 +7,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Box, makeStyles } from '@material-ui/core';
 import { Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import Dropdown from '../../images/employee/drop.svg';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -44,6 +46,13 @@ const useStyles=makeStyles({
 
   },
   root: {
+    '& .css-10q54uo-MuiSelect-icon':{
+      top:'0.3rem',
+      },
+      '& .css-3qbkez-MuiSelect-icon':{
+        top:'0.3rem',
+      },
+      height:'42px',
       [`& fieldset`]: {
           border: '1px solid #E1E1E1',
         borderRadius: "10px !important",
@@ -103,6 +112,28 @@ export default function SelectLocalUi({title,data,handleChange,name,value,error,
           displayEmpty
           value={value}
           onChange={handleChange}
+          IconComponent={(props)=>(
+            <Box {...props} component='div' style={{      
+                  width: '32px',
+                  height: '32px',
+                  display:'flex',
+                  justifyContent:'center',
+                  alignItems:'center',
+                  background: '#FCFCFC',
+                  borderRadius: '8px',
+            }}>
+             <img    
+             style={{
+              pointerEvents: 'none',
+              height:'6px',
+              widht:'12px',
+             }}
+             src={Dropdown}
+
+             />
+            </Box>
+
+          )}
           onBlur={handleBlur}
           error={error}
           input={<OutlinedInput />}
@@ -113,7 +144,9 @@ export default function SelectLocalUi({title,data,handleChange,name,value,error,
             <MenuItem
               key={id}
               value={list}
-              style={getStyles(list, personName, theme)}
+              style={{textTransform: 'capitalize'}}
+
+              // style={getStyles(list, personName, theme)}
             >
               {list}
             </MenuItem>

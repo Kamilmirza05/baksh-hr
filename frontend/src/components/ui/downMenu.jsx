@@ -3,7 +3,7 @@ import React from 'react'
 import { Container, List, ListItem, ListItemButton,ListItemIcon, ListItemText  } from '@mui/material';
 import { Box } from '@mui/system'
 import { makeStyles } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const useStyles=makeStyles({
    childList:{
@@ -28,13 +28,39 @@ const useStyles=makeStyles({
    rotate:{
     '-webkit-transform': 'rotateX(180deg)',
     transform: 'rotateX(180deg)',
-   }
+   },
+   active:{
+    backgroundColor:'#2C2F32',
+    color:'white',
+    borderRadius: '10px',
+    fill:'white'
+   },
+   list:{
+    cursor:'pointer',
+    //styleName: 14 B;
+    fontFamily: 'Poppins',
+    fontSize: '14px',
+    fontWeight: 600,
+    lineHeight: '21px',
+    letterSpacing: '-0.02em',
+    textAlign: 'left',
+    gap:'0.8rem',
+    padding:'12px, 11px, 12px, 11px',
+    width:'100%',
+    justifyContent:'center',
+  },
 })
 
 
 
 const DownMenu = ({classes,icon,label,downArrow,droplabel,tab,settab,path}) => {
+  const location = useLocation();
+  const currentRoute = location.pathname;
 
+
+  
+
+  
   const classStyle=useStyles();
 
   const openHandler=(value)=>{
@@ -45,8 +71,8 @@ const DownMenu = ({classes,icon,label,downArrow,droplabel,tab,settab,path}) => {
     }
   }
   return (<>
-                   <NavLink className={classes.list} to={path}>
-                      <ListItemButton className={classes.list} style={{borderRadius:'10px'}}>
+                   <NavLink className={`${classStyle.list}   ${droplabel?.some(arr=>arr.path===currentRoute)===true && classStyle.active}`} to={path}>
+                      <ListItemButton className={classStyle.list} style={{borderRadius:'10px'}}>
                         <Box component='img' src={icon}/>
                           <ListItemText primary={label}/>
                         <Box component='img' src={downArrow} className={tab===label && classStyle.rotate} onClick={()=>{openHandler(label)}}/>
