@@ -4,7 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "server": "nodemon server.js",
     "dev": "Concurrently \"npm start\" \"npm run frontend\""
   },
