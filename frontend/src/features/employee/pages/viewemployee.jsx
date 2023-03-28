@@ -10,13 +10,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmployeeThunk from '../../../redux/thunk/employeeThunk';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
-import { adminApi } from '../../../axios/axiosData';
-import { useNavigate } from 'react-router-dom';
+import { adminApi, publicApi } from '../../../axios/axiosData';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { DataGrid } from '@mui/x-data-grid';
 import TopHeader from '../ui/seachBar';
 import SearchBar from '../ui/seachBar';
 import EmployeeTable from '../components/employeeTable';
+import ViewCard from '../components/viewCard';
+import ViewDetailList from '../components/viewDetailList';
 
 
 
@@ -51,27 +53,51 @@ const useStyles=makeStyles({
   column:{
     display:'flex',
     flexDirection:'column',
+  },
+  rightContainer:{
     width:'70%'
   }
 
 })
 
 
-const Managemployee = () => {
+const ViewEmployee = () => {
     const classes=useStyles();
     const [employees,setemployees]=useState([])
+    const [cookies] = useCookies(['token']);
+    const [employee,setemployee]=useState([]);
+    const params= useParams();
+
+    useEffect(()=>{
+
+        const fetchEmployee=async()=>{
+            const {token}=cookies;
+            const {employeeId}=params;
+            console.log(token,employeeId)
+            const response=await axios.get(publicApi+`/get-employee/${employeeId}`,{
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            setemployee(response?.data?.employee)
+        }
+        fetchEmployee();
+    },[])
+
+
   return (
     <Box component='div' className={classes.mainContainer}>
         <Box component='div' className={classes.sidebar}>
             <Sidebar/>
         </Box>
-        <Box component='div' className={classes.column}>
-            <Header heading={"Manage Employee"}/>
-            <SearchBar setemployees={setemployees}/>
-            <EmployeeTable employees={employees} setemployees={setemployees}/>
+        <Box component='div' className={classes.rightContainer}>
+           <Header heading={"View Employee"}/>
+           <ViewCard employee={employee}/>
+           <ViewDetailList/>
         </Box>
+
     </Box>
   )
 }
 
-export default Managemployee
+export default ViewEmployee

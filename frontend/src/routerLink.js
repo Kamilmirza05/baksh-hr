@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import EditEmployee from './features/employee/pages/editemployee'
 import Managemployee from './features/employee/pages/managemployee'
+import ViewEmployee from './features/employee/pages/viewemployee'
 const Dashboard=React.lazy(() => import('./features/dashboard'))
 const Employee= React.lazy(() => import('./features/employee'))
 const Login= React.lazy(() => import('./features/login'))
@@ -31,6 +32,13 @@ const RouterLink = () => {
               element={  
               <React.Suspense fallback={<>Loading...</>}>
                 <EditEmployee/>
+              </React.Suspense>
+              } 
+          />
+          <Route path="/view-employee/:employeeId" 
+              element={  
+              <React.Suspense fallback={<>Loading...</>}>
+                <ViewEmployee/>
               </React.Suspense>
               } 
           />

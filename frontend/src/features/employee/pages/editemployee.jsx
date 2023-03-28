@@ -200,7 +200,7 @@ const EditEmployee = () => {
 
     const FetchEmployee=async ()=>{
       console.log(employeeId)
-      let response=await  axios.get(publicApi+`/editEmployee/${employeeId}`,{
+      let response=await  axios.get(publicApi+`/get-employee/${employeeId}`,{
           headers: {
               authorization: `Bearer ${token}`,
           },

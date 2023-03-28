@@ -13,7 +13,7 @@ router.post('/login',validLogin,login);
 router.get('/banks',banks);
 // Depa
 
-router.get('/editEmployee/:employeeId',isAuth,getEmployee);
+router.get('/get-employee/:employeeId',isAuth,getEmployee);
 
 
 module.exports=router;
