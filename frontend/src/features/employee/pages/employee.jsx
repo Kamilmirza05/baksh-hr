@@ -226,7 +226,7 @@ const Employee = () => {
         },
       })
       .then((response)=>{
-        navigate('/employees')
+        navigate('/manage-employees')
       })
 
 

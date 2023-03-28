@@ -26,7 +26,6 @@ const Attendance= sequelize.define('attendance', {
     },
     checkOut:{
         type:DataTypes.checkOut,
-        require: true
     },
     fingerprint:{
         type:DataTypes.STRING,

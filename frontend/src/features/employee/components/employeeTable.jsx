@@ -102,8 +102,6 @@ const useStyles=makeStyles({
     width: '58px',
     height: '20px',
 
-
-
     border: '1px solid #2C2F32',
     borderRadius: '32px',
   },
@@ -121,7 +119,7 @@ const useStyles=makeStyles({
   tableCotainer:{
     border: '1px solid #E1E1E1',
     borderRadius: '11px',
-    width:'95%',
+    width:'100%',
     marginTop:'1%'
   },
   tableHeader:{
@@ -297,9 +295,11 @@ const EmployeeTable = ({employees,setemployees}) => {
                      </TableCell>
                      <TableCell className={classes.tableCell}>
                         <Box className={classes.actionContainer}>
-                          <Box component='div' className={`${classes.iconDiv} ${classes.eyeIcon}`}>
-                            <img src={eye}  className={classes.icons}/>
-                          </Box>
+                          <NavLink to={`/view-employee/${row.id}`}>
+                            <Box component='div' className={`${classes.iconDiv} ${classes.eyeIcon}`}>
+                              <img src={eye}  className={classes.icons}/>
+                            </Box>
+                          </NavLink>
                           <NavLink to={`/edit-employee/${row.id}`}>
                             <Box component='div' className={`${classes.iconDiv} ${classes.editIcon}`}>
                               <img src={edit} className={classes.icons} />

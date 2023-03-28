@@ -14,7 +14,7 @@ exports.createAdmin=(req,res,next)=>{
 exports.insertRole=async (req,res,next)=>{
     const {roleName}=req.body;
     try {
-        const response=await InsertRole(roleName)
+        const response=await InsertRole(roleName);
         return res.json({msg:'Succefully Created',status:true,response:response});
     } catch (error) {
         return Error(req,res,error);
