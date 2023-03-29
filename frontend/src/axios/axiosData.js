@@ -1,4 +1,4 @@
-const url="http://localhost:8000"
+const url="http://localhost:8000/"
 
 // "http//localhost:8000"
 const publicApi="http://localhost:8000/api"

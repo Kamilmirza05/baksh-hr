@@ -149,14 +149,13 @@ const EditEmployee = () => {
        nationality:yup.string().required('Nationality is required'),
        managerId:yup.string().required('Manager is required'),
   })
-  const formik =
-   useFormik({
+  const formik =useFormik({
     initialValues:{
       email: '',
       password:'',
       name:'',
       fatherName:'',
-      // profilePic:'',
+      profile:'',
       dateofJoining:'',
       dob:'',
       gender:'',
@@ -240,7 +239,8 @@ const EditEmployee = () => {
              },
              bloodGroup,
             }=data;
-            console.log(data)
+            // console.log(data)
+            console.log(profilePhoto?.filename)
             formik.setValues({name,email,fatherName,contactOne,contactTwo,
                               localAddress,permanentAddress,nationality,
                               martialStatus,accountholderName:holderName,
@@ -249,6 +249,7 @@ const EditEmployee = () => {
                               status,managerId,salary,salaryType,bloodGroup,emergencyContact,
                               kinname,relation,relationContact:kinPhone,password,gender,
                               dob:dayjs(dob),dateofJoining:dayjs(dateofJoining),
+                              profile:profilePhoto?.filename
                             })
     }
     FetchEmployee();
@@ -257,6 +258,7 @@ const EditEmployee = () => {
  
 
   const valuHandler=(values)=>{
+    console.log(values)
       const token=cookies.token;
       console.log(bankId)
       let formData = new FormData();    
@@ -280,6 +282,7 @@ const EditEmployee = () => {
       formData.append('password',values.password);
       formData.append('bloodGroup',values.bloodGroup);
       formData.append('managerId',values.managerId);
+      formData.append('employeePhoto',profilePic)
       formData.append('accountNumber',values.accountNumber)
       formData.append('bankId',values.bankId);
       formData.append('branch',values.branchName);
@@ -292,13 +295,13 @@ const EditEmployee = () => {
       formData.append('employeeId',values.employeeId);
 
 
-      axios.post(adminApi+'/create-employee',formData,{
+      axios.put(adminApi+'/edit-employee',formData,{
         headers: {
           authorization: `Bearer ${token}`,
         },
       })
       .then((response)=>{
-        navigate('/employees')
+        // navigate('/manage-employees')
       })
 
 

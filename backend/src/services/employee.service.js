@@ -163,6 +163,7 @@ const editEmployee=async (req,res,
             employee.kinname=kinname;
             employee.relation=relation;
             employee.kinPhone=kinPhone;
+            employee.password=password;
             if(req?.file){
                 employee.profilePhoto=req.file;
             }
@@ -182,6 +183,7 @@ const editEmployee=async (req,res,
         console.log(user)
         user.name=name;
         user.email=email;
+        user.status=status;
         if(user.password!==password){
             const salt = await bcrypt.genSalt(10);
             var hash = await bcrypt.hash(password, salt);

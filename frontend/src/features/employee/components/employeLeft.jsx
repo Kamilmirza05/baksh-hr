@@ -114,7 +114,7 @@ const EmployeLeft = ({
         </Typography>
       </Box>
       <Box className={classes.innerContainer} component='div'>
-        <FileInput state={profilePic} setState={employeeAction.profileAction}/>
+        <FileInput state={profilePic} value={values?.profile} setState={employeeAction.profileAction}/>
         <InputText 
             placeholder={'Add Full name'} 
             title={'Name'} 

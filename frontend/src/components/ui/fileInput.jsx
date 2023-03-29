@@ -3,6 +3,7 @@ import { Label } from '@mui/icons-material'
 import { Input } from '@mui/material'
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { url } from '../../axios/axiosData'
 import file from '../../images/file.svg'
 
 const useStyles=makeStyles({
@@ -63,7 +64,7 @@ const useStyles=makeStyles({
         color:'#868B90'
     }
 })
-const FileInput = ({setState,state}) => {
+const FileInput = ({setState,state,value}) => {
     const dispatch=useDispatch();
     const classes=useStyles();
 
@@ -75,8 +76,8 @@ const FileInput = ({setState,state}) => {
        <input type='file' hidden onChange={HandleChange}   name="profile" id='profile'/>
        <label htmlFor='profile'>
         <Box component='div' className={classes.file}>
-             {state ?            
-                 <Box component='img' src={URL.createObjectURL(state)} className={classes.fileLogo}/>
+            {state || value ?            
+                 <Box component='img' src={value?.length>0 ? url+value : URL.createObjectURL(state)} className={classes.fileLogo}/>
                  :
                  <>
                     <Box component='img' src={file} className={classes.fileLogo}/>
