@@ -56,6 +56,14 @@ const RouterLink = () => {
               </React.Suspense>
               } 
           />
+
+              <Route path="/AddAttendance" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <Login/>
+              </React.Suspense>
+              } 
+          />
     </Routes>      
     </>
 
