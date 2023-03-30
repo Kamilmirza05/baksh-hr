@@ -1,5 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import Attendance from './features/attendance/pages/attendance'
+import AttendanceReport from './features/attendance/pages/attendancereports'
+import Manageattendance from './features/attendance/pages/manageattendance'
 import EditEmployee from './features/employee/pages/editemployee'
 import Managemployee from './features/employee/pages/managemployee'
 import ViewEmployee from './features/employee/pages/viewemployee'
@@ -12,8 +15,6 @@ const RouterLink = () => {
   return (
     <>
      <Routes>
-          
-
           <Route path="/dashboard" 
               element={  
               <React.Suspense fallback={<>...</>}>
@@ -57,10 +58,24 @@ const RouterLink = () => {
               } 
           />
 
-              <Route path="/AddAttendance" 
+              <Route path="/daily-attendance" 
               element={  
               <React.Suspense fallback={<>...</>}>
-                <Login/>
+                <Attendance/>
+              </React.Suspense>
+              } 
+          />
+             <Route path="/attendance-report" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <AttendanceReport/>
+              </React.Suspense>
+              } 
+          />
+             <Route path="/manage-attendance" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <Manageattendance/>
               </React.Suspense>
               } 
           />

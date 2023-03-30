@@ -4,7 +4,6 @@ import Sidebar from '../../../components/sidebar/sidebar'
 import { makeStyles } from '@material-ui/core';
 import { Box} from '@mui/material'
 import SearchBar from '../ui/seachBar';
-import AttendanceTable from '../../attendance/components/attendancedataTable'
 
 
 const useStyles=makeStyles({
@@ -55,7 +54,6 @@ const useStyles=makeStyles({
           <Box component='div' className={classes.column}>
               <Header heading={"Manage Attendance"}/>
               <SearchBar setattendance={setattendance}/>
-              <AttendanceTable employees={attendance} setattendance={setattendance}/>
           </Box>
       </Box>
     )

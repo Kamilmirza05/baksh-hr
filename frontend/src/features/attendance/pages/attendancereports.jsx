@@ -1,4 +1,6 @@
 import { Box } from "@mui/material";
+import { useEffect } from "react";
+import { useParams } from "react-router";
 import Header from "../../../components/header/header";
 import Sidebar from "../../../components/sidebar/sidebar";
 
@@ -41,7 +43,7 @@ const useStyles=makeStyles({
   })
 
 
-  const ViewAttendance = () => {
+  const AttendanceReport = () => {
       const classes=useStyles();
       const [attendance,setattendance]=useState([])
       const [cookies] = useCookies(['token']);
@@ -79,4 +81,4 @@ const useStyles=makeStyles({
     )
   }
 
-  export default ViewAttendance
+  export default AttendanceReport

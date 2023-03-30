@@ -86,7 +86,7 @@ const Sidebar = () => {
          <List className={classes.menuList}>
            <DownMenu label={"Dashboard"} icon={Dashboard} path={'/dashboard'} classes={classes}/>
            <DownMenu label={"Employees"} droplabel={[{label:"Add Employee",path:'/add-employee'},{label:"Manage Employee",path:'/manage-employees'}]} icon={employee} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
-           <DownMenu label={"Attendance"} droplabel={[{label:"Daily Attendance",path:'/Daily-attendance'},{label:"Attendance Report",path:'/attendance-report'},{label:"Manage Attendance",path:'/manage-attendance'}]} icon={attendance} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
+           <DownMenu label={"Attendance"} droplabel={[{label:"Daily Attendance",path:'/daily-attendance'},{label:"Attendance Report",path:'/attendance-report'},{label:"Manage Attendance",path:'/manage-attendance'}]} icon={attendance} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
            <DownMenu label={"Loan Management"} icon={loan} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Leaves"} icon={leave} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Payroll"} icon={payroll} classes={classes} downArrow={downArrow}/>
