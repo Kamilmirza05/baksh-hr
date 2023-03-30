@@ -41,7 +41,7 @@ app.use('/api/admin',adminRoutes)
 app.use('/api',Api)
 
 app.use("*",function(req,res){
-  res.sendFile(path.join(__dirname,'../frontend/build'))
+  res.sendFile(path.join(__dirname, "../frontend/build"))
 })
 
 // RelationShips Role and Permissions

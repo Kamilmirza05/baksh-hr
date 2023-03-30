@@ -12,6 +12,7 @@
     "@mui/lab": "^5.0.0-alpha.122",
     "@mui/material": "^5.11.11",
     "@mui/styled-engine-sc": "^5.11.11",
+    "@mui/x-data-grid": "^6.0.2",
     "@mui/x-date-pickers": "^6.0.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -30,7 +31,8 @@
     "react-scripts": "5.0.1",
     "sort-by": "^1.2.0",
     "styled-components": "^5.3.8",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "x-data-grid": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

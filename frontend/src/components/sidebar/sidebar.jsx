@@ -23,6 +23,7 @@ import DownMenu from '../ui/downMenu';
 const useStyles = makeStyles({
     container:{
         backgroundColor:'#FCFCFC',
+        // font: "Poppins",
         width:'100%',
         height:'100%',
         overflow:'auto',
@@ -99,7 +100,7 @@ const Sidebar = () => {
          <List className={classes.menuList}>
            <DownMenu label={"Dashboard"} icon={Dashboard} path={'/'} classes={classes}/>
            <DownMenu label={"Employees"} droplabel={[{label:"Add Employee",path:'/AddEmployee'},{label:"Manage Employee",path:'/Employees'}]} icon={employee} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
-           <DownMenu label={"Attendance"} icon={attendance} classes={classes} downArrow={downArrow}/>
+           <DownMenu label={"Attendance"} droplabel={[{label:"Daily Attendance",path:'/DailyAttendance'},{label:"Attendance Report",path:'/Attendance'},{label:"Manage Attendance",path:'/Attendance'}]} icon={attendance} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
            <DownMenu label={"Loan Management"} icon={loan} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Leaves"} icon={leave} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Payroll"} icon={payroll} classes={classes} downArrow={downArrow}/>

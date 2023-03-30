@@ -37,12 +37,12 @@ const useStyles=makeStyles({
 
   },
 
-})
+});
 
 const Employee = () => {
   const navigate=useNavigate();
-  const [cookies] = useCookies(['token']);
   const classes=useStyles();
+  const [cookies] = useCookies(['token']);
   const dispatch=useDispatch();
   const name=useSelector(state=>state.emp.name);
   const fatherName=useSelector(state=>state.emp.fatherName);
@@ -130,8 +130,7 @@ const Employee = () => {
       })
       .then((response)=>{
         navigate('/employees')
-      })
-
+      });
 
       // alert(`
       // name:${name} 
@@ -175,7 +174,6 @@ const Employee = () => {
               <Box component='hr' className={classes.sideBorder}></Box>
               <EmployeeRight submitHandler={submitHandler}/>
             </Box>
-
         </Box>
     </Box>
   )

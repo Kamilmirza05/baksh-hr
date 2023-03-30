@@ -1,3 +1,4 @@
+const User = require('../models/user');
 const Employee=require('../services/employee.service');
 
 exports.createEmployee=async (req,res,next)=>{
@@ -11,7 +12,7 @@ exports.createEmployee=async (req,res,next)=>{
         return Error(req,res,error);
     }
 
-}
+};
 
 
 
@@ -24,7 +25,7 @@ exports.editEmployee=async (req,res,next)=>{
         return Error(req,res,error);
     }
 
-}
+};
 
 exports.salaryTypes=async (req,res,next)=>{
 
@@ -38,30 +39,31 @@ exports.salaryTypes=async (req,res,next)=>{
     } catch (error) {
         return Error(req,res,error);
     }
-}
+};
 
-exports.markAttendanceIn=async (req,res,next)=>{
+exports.createAttendance=async (req,res,next)=>{
 
-
-    const {timeIn}=req.body.fingerprint;
-
-    try {
-        const response=await Employee.markAttendanceIn(req.Checktime.timeIn || fingerprint);
+ try {
+        const response=await Employee.createAttendance(req.Checktime.timeIn || fingerprint);
         res.json({msg:"Attendance mark",flag:true,response:response})
     } catch (error) {
          return Error(req,res,error);
     }
-}
+    const employee = await findEmployeebyId(Id)
 
-exports.markAttendanceOut=async (req,res,next)=>{
+    if (!employee){
+        return res.status(400).json('employee not found please add your fingerprint')
 
+    }
+    else {
 
-    const {timeOut}=req.body.fingerprint;
-
-    try {
-        const response=await Employee.markAttendanceOut(req.checktime.timeOut || fingerprint);
-        res.json({msg:"Attendance mark",flag:true,response:response})
-    } catch (error) {
-         return Error(req,res,error);
+        const {id,timeOut}=req.body.fingerprint;
+        res.json({msg:"Attendance not mark",flag:false,response:false})
+        throw new Error("please mark your attendance")
     }
 }
+
+
+
+
+

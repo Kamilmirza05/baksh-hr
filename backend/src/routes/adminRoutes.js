@@ -7,6 +7,7 @@ const { multerUpload } = require('../middleware/multer');
 const isAuth=require('../middleware/authorize')
 const EmployeeController=require('../controllers/employee.controller')
 const {getDepartment} =require('../controllers/department.controller');
+const attendanceController = require ('../controllers/attendance.controller')
 
 const {validRole,validUser,validManager, validEditManager, validEmployee}=require('../validations/validations');
 const { getDesignations } = require('../controllers/department.controller');
@@ -56,10 +57,13 @@ router.put('/edit-employee',multerUpload.single('employeePhoto'),EmployeeControl
 
 router.get('/salaryTypes',EmployeeController.salaryTypes);
 
+//create Attendance
+router.get('/employee/createAttendance', EmployeeController.createAttendance);
+router.post('/employee/markattendance', attendanceController.getAttendance);
 
-router.get('/view-attendance-current', adminController.viewCurrentlyMarkedAttendance);
-router.put('/Employee/viewAttendance', adminController.viewAttendanceSheet);
 
-
+//edit Attendance
+router.put('/createAttendance/:id', attendanceController.editAttendance);
+router.delete('/employee/markattendance/:id', attendanceController.deleteAttendnace);
 
 module.exports=router;

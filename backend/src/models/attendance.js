@@ -3,7 +3,8 @@ const sequelize=require('../untils/db');
 const User = require('./user');
 
 const Attendance= sequelize.define('attendance', {
-    employeeId:{
+
+    UserId:{
         type:DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
