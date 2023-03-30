@@ -13,64 +13,50 @@ const Login = React.lazy(() => import("./features/login"));
 const RouterLink = () => {
   return (
     <>
-      <Routes>
-        <Route
-          path="/dashboard"
-          element={
-            <React.Suspense fallback={<>...</>}>
-              <Dashboard />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/add-employee"
-          element={
-            <React.Suspense fallback={<>...</>}>
-              <Employee />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/edit-employee/:employeeId"
-          element={
-            <React.Suspense fallback={<>Loading...</>}>
-              <EditEmployee />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/view-employee/:employeeId"
-          element={
-            <React.Suspense fallback={<>Loading...</>}>
-              <ViewEmployee />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/manage-employees"
-          element={
-            <React.Suspense fallback={<>Loading...</>}>
-              <Managemployee />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <React.Suspense fallback={<>...</>}>
-              <Login />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/add-leave"
-          element={
-            <React.Suspense fallback={<>...</>}>
-              <AddLeave />
-            </React.Suspense>
-          }
-        />
-      </Routes>
+     <Routes>
+          <Route path="/AddEmployee" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <Employee/>
+              </React.Suspense>
+              } 
+          />
+          <Route path="/" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <Login/>
+              </React.Suspense>
+              } 
+          />
+          <Route path="/dashboard" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <Dashboard/>
+              </React.Suspense>
+              } 
+          />
+          <Route path="/daily-attendance" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <Attendance/>
+              </React.Suspense>
+              } 
+          />
+          <Route path="/attendance-report" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <Attendance/>
+              </React.Suspense>
+              } 
+          />
+          <Route path="/manage-attendance" 
+              element={  
+              <React.Suspense fallback={<>...</>}>
+                <Attendance/>
+              </React.Suspense>
+              } 
+          />
+    </Routes>      
     </>
   );
 };
