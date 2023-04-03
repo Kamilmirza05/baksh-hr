@@ -11,7 +11,6 @@ const LoginThunk=(data,navigate,setCookie)=>{
                 const response= await axios.post(publicApi+'/login',data,{
                     headers: {"Content-Type": "application/json"},
                 });
-                // navigate('/')
                 var tomorrow = new Date();
                 tomorrow.setDate(tomorrow.getDate()+1);
                 setCookie('userId',response?.data?.response?.data.userId,{
@@ -24,6 +23,8 @@ const LoginThunk=(data,navigate,setCookie)=>{
                 setCookie("token",response?.data?.response?.token,{
                     expires: tomorrow 
                 })
+                navigate('/dashboard')
+
                 // cson
                 // const data=respone.json();
             } catch (error) {

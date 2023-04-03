@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@mui/material'
 const useStyles = makeStyles((theme) => ({
   root: {
-    fontFamily: 'Poppins , sans-serif',
 
     '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
       borderColor: '#E1E1E1',

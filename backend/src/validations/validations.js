@@ -19,23 +19,22 @@ exports.validUser=[
   body('email')
   .notEmpty()
   .isString()
-  .isLength({ min: 3})
-  .custom(value => {
-    console.log(value)
-    return User.findOne({where:{email:value}})
-    .then(user => {
-      if (user) {
-        return Promise.reject('E-mail already exist');
-      }
-    });
-  }),
+  .isLength({ min: 3}),
+
   body('password').notEmpty().isString().isLength({ min: 3}),
   (req,res,next)=>{
-      console.log(req.body)
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
+
+      User.findOne({where:{email:req.body.email}})
+      .then(user => {
+        if (user) {
+          console.log('ht,,,')
+          return res.status(200).json({msg:'E-mail already exist',flag:false});
+        }
+      });
       next();
   }
 ]
@@ -137,10 +136,10 @@ exports.validLogin=[
       return User.findOne({where:{email:email}})
       .then(user => {
         if (!user) {
-          return Promise.reject('E-mail Not Exist');
+          throw new Error('E-mail Not Exist');
         }
         if(user.status==='inactive'){
-          return Promise.reject('Your account is blocked');
+          throw new Error('Your account is blocked');
         }
       });
     })
@@ -159,6 +158,9 @@ exports.validLogin=[
 ];
 
 // Close Validation Login
+exports.permission=[
+
+]
 
 
 
@@ -167,20 +169,30 @@ exports.validEmployee=[
   body('fatherName').notEmpty().withMessage('Father Name is required'),
   body('dob').notEmpty().withMessage('Date of Birth is required'),
   body('gender').notEmpty().withMessage('Gender is required').isIn(['male', 'female', 'other']).withMessage('Invalid Gender'),
-  body('phoneOne').notEmpty().withMessage('Primary Phone is required'),
-  body('phoneTwo').optional().notEmpty().withMessage('Secondary Phone is required'),
+  body('contactOne').notEmpty().withMessage('Primary Phone is required'),
+  body('contactTwo').optional().notEmpty().withMessage('Secondary Phone is required'),
   body('localAddress').notEmpty().withMessage('Local Address is required'),
   body('nationality').notEmpty().withMessage('Nationality is required'),
   body('permanentAddress').notEmpty().withMessage('Permanent Address is required'),
-  body('referenceOne').notEmpty().withMessage('Reference One is required'),
-  body('referenceOnePhone').notEmpty().withMessage('Reference One Phone is required'),
-  body('referenceTwo').notEmpty().withMessage('Reference Two is required'),
-  body('referenceTwoPhone').notEmpty().withMessage('Reference Two Phone is required'),
+  // body('referenceOne').notEmpty().withMessage('Reference One is required'),
+  // body('referenceOnePhone').notEmpty().withMessage('Reference One Phone is required'),
+  // body('referenceTwo').notEmpty().withMessage('Reference Two is required'),
+  // body('referenceTwoPhone').notEmpty().withMessage('Reference Two Phone is required'),
   body('martialStatus').notEmpty().withMessage('Marital Status is required'),
   body('departmentId').notEmpty().withMessage('Department ID is required'),
   body('designationId').notEmpty().withMessage('Designation ID is required'),
   body('dateofJoining').notEmpty().withMessage('Date of Joining is required'),
-  body('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid Email'),
+  body('email').notEmpty().withMessage('Email is required')
+  .isEmail()
+  .withMessage('Invalid Email')
+  .custom((email)=>{
+      return User.findOne({where:{email:email}})
+      .then(user => {
+        if (user) {
+          return Promise.reject('E-mail already exist');
+        }
+      })
+  }),
   body('password').notEmpty().withMessage('Password is required'),
   body('status').notEmpty().withMessage('Status is required'),
   body('bloodGroup').notEmpty().withMessage('Blood Group is required'),
@@ -190,9 +202,8 @@ exports.validEmployee=[
   body('kinPhone').notEmpty().withMessage('Next of Kin Phone is required'),
   body('holderName').notEmpty().withMessage('Account Holder Name is required'),
   body('accountNumber').notEmpty().withMessage('Account Number is required'),
-  body('bankName').notEmpty().withMessage('Bank Name is required'),
+  body('bankId').notEmpty().withMessage('Bank Name is required'),
   body('branch').notEmpty().withMessage('Branch is required'),
-  body('bankCode').notEmpty().withMessage('Bank Code is required'),
   body('salaryType').notEmpty().withMessage('Salary Type is required'),
   body('salary').notEmpty().withMessage('Salary is required'),
   (req, res, next) => {

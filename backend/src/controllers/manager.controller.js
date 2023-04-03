@@ -58,3 +58,13 @@ exports.deleteManager=async (req,res,next)=>{
         return Error(req,res,error);
     }
 }
+
+
+exports.getManagersList=async (req,res,next)=>{
+    try {
+        const response=await Manager.getManagersList();
+        res.json({msg:"Manager Deleted",flag:true,managers:response});
+    } catch (error) {
+        return Error(req,res,error);
+    }
+}

@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         height:'100%',
         overflow:'auto',
         position:'fixed',
-        width:"25vw"    
+        width:"22%"    
     },
     logoHeading:{
         fontSize:'2rem',
@@ -56,20 +56,7 @@ const useStyles = makeStyles({
         flexDirection:'row',
         justifyContent:'center',
     },
-    list:{
-        cursor:'pointer',
-        //styleName: 14 B;
-        fontFamily: 'Poppins',
-        fontSize: '14px',
-        fontWeight: 600,
-        lineHeight: '21px',
-        letterSpacing: '-0.02em',
-        textAlign: 'left',
-        gap:'0.8rem',
-        padding:'12px, 11px, 12px, 11px',
-        width:'100%',
-        justifyContent:'center',
-    },
+
     menuListbtn:{
         borderRadius:'10px',
     },
@@ -97,9 +84,9 @@ const Sidebar = () => {
        </Box>
        <Box className={classes.listContainer} component='div'>
          <List className={classes.menuList}>
-           <DownMenu label={"Dashboard"} icon={Dashboard} classes={classes}/>
-           <DownMenu label={"Employees"} droplabel={[{label:"Add Employee"},{label:"Manage Employee"}]} icon={employee} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
-           <DownMenu label={"Attendance"} icon={attendance} classes={classes} downArrow={downArrow}/>
+           <DownMenu label={"Dashboard"} icon={Dashboard} path={'/'} classes={classes}/>
+           <DownMenu label={"Employees"} droplabel={[{label:"Add Employee",path:'/AddEmployee'},{label:"Manage Employee",path:'/Employees'}]} icon={employee} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
+           <DownMenu label={"Attendance"} droplabel={[{label:"Daily Attendance",path:'/daily-attendance'},{label:"Attendance Report",path:'/attendance-report'},{label:"Manage Attendance",path:'/manage-attendance'}]} icon={attendance} classes={classes} downArrow={downArrow} tab={tab} settab={settab}/>
            <DownMenu label={"Loan Management"} icon={loan} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Leaves"} icon={leave} classes={classes} downArrow={downArrow}/>
            <DownMenu label={"Payroll"} icon={payroll} classes={classes} downArrow={downArrow}/>

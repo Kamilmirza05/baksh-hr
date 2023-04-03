@@ -1,1 +1,1 @@
-export {default} from './components/employee'
+export {default} from './pages/employee'

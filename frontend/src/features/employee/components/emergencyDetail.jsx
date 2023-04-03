@@ -5,6 +5,8 @@ import InputText from '../ui/input'
 import InputNumber from '../../../components/ui/inputNumber';
 import SelectUi from '../../../components/ui/select';
 import ButtonUi from '../../../components/ui/button';
+import { useSelector } from 'react-redux';
+import { employeeAction } from '../../../redux/slice/employeeSlice';
 
 
 const BankName=[
@@ -47,9 +49,8 @@ const useStyles=makeStyles({
     flexRow:{
         display:'flex',
         width:'100%',
-        flex:1,
         justifyContent:'center',
-        alignItems:'center',
+        alignItems:'start',
         gap:20
     },
     subBtn:{
@@ -70,25 +71,94 @@ const useStyles=makeStyles({
     }
 })
 
-const EmergencyDetail = ({}) => {
+const EmergencyDetail = ({
+    submitHandler,              
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    isValid,
+    dirty,
+    touched,
+    values
+}) => {
   const classes=useStyles()
+  const name=useSelector(state=>state.emp.name);
+  const fatherName=useSelector(state=>state.emp.fatherName);
+  const profilePic=useSelector(state=>state.emp.profilePic);
+  const dob=useSelector(state=>state.emp.dob);
+
+  
+  
+
   return (
     <Box component='div' className={classes.container}>
        <Box component='h1' className={classes.title}>Emergency Details</Box>
        <Box component='div' className={classes.fields}>
            <Box className={classes.flexRow}>
-                <InputText placeholder={'Add Name of Kin'} title={'Blood Group'}/>
-                <InputNumber label={'Add Phone Number'} classes={classes} placeholder={'Emergency Contact'} />
+                <InputText 
+                   placeholder={'Add Blood Group'} 
+                    value={values.bloodGroup} 
+                    error={Boolean(touched.bloodGroup && errors.bloodGroup)} 
+                    helperText={touched.bloodGroup && errors.bloodGroup}  
+                    name="bloodGroup" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur} 
+                    title={'Blood Group'}
+                />
+                <InputNumber 
+                    label={'Add Phone Number'}
+                    value={values.emergencyContact} 
+                    error={Boolean(touched.emergencyContact && errors.emergencyContact)} 
+                    helperText={touched.emergencyContact && errors.emergencyContact}  
+                    name="emergencyContact" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}     
+                    classes={classes} 
+                    placeholder={'Emergency Contact'} 
+                />
            </Box>
-           <InputText placeholder={'Add Name of Kin'} title={'Next of Kin'}/>
+           <InputText 
+                placeholder={'Add Name of Kin'}  
+                value={values.kinname} 
+                error={Boolean(touched.kinname && errors.kinname)} 
+                helperText={touched.kinname && errors.kinname}  
+                name="kinname" 
+                touched={touched}
+                handleChange={handleChange}
+                handleBlur={handleBlur} 
+                title={'Next of Kin'}
+           />
            <Box className={classes.flexRow}>
-                <InputText placeholder={'Relation'} title={'Add Relation '}/>
-                <InputNumber label={'Phone'} classes={classes} placeholder={'Add Phone Number'} />
+                <InputText 
+                    placeholder={'Relation'} 
+                    value={values.relation} 
+                    error={Boolean(touched.relation && errors.relation)} 
+                    helperText={touched.relation && errors.relation}  
+                    name="relation" 
+                    touched={touched}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur} 
+                    title={'Add Relation '}
+                            
+                />
+                <InputNumber 
+                     label={'Phone'} 
+                     classes={classes} 
+                     placeholder={'Add Phone Number'} 
+                     value={values.relationContact} 
+                     error={Boolean(touched.relationContact && errors.relationContact)} 
+                     helperText={touched.relationContact && errors.relationContact}  
+                     name="relationContact" 
+                     touched={touched}
+                     handleChange={handleChange}
+                     handleBlur={handleBlur}     
+                />
            </Box>
-           <Box component='div' className={classes.flexEnd}>
-             <Button>Save as draft</Button>
-             <Button className={classes.subBtn}>Submit</Button>
-           </Box>
+
        </Box>
     </Box>
   )
