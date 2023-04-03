@@ -11,6 +11,11 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
+
+    // width: "77%",
+    // border: "4px solid red",
+
+    // marginLeft: "auto",
   },
   pageName: {
     fontFamily: "Poppins",
