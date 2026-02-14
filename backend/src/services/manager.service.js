@@ -9,26 +9,24 @@ const {Op}=require('sequelize');
 
 
 const createManager=async (req,res,photo,name,phone,email,password,status,module,userId)=>{
-        const transaction = await sequelize.transaction();
-
-        
-        const roles=await Role.findOne({where:{roleName:'manager'}});
-        try{
-            const permission=await Permission.create({
-                module:module,
-                active:true,
-            },{transaction})
-            var hash = bcrypt.hashSync(password, 8);
-            
-            const user=await User.create({
-                email:email,
-                password:hash,
-                permissionId:permission?.id,
-                roleId:roles?.id,
-                status:status,
-            },{transaction})
+    const transaction = await sequelize.transaction();
     
-            const manager=await Manager.create({
+    console.log(photo,name,phone,email,password,status,module,userId)
+           const roles=await Role.findOne({where:{roleName:'manager'}});
+            const permission=await Permission.create({
+                    module:module,
+                    active:true,
+            },{transaction})
+            var hash = bcrypt.hashSync(password, 8);        
+            try{
+                const user=await User.create({
+                        email:email,
+                        password:hash,
+                        permissionId:permission?.id,
+                        roleId:roles?.id,
+                        status:status,
+                },{transaction})
+                const manager=await Manager.create({
                     name:name,
                     email:email,
                     status:status,
@@ -36,16 +34,20 @@ const createManager=async (req,res,photo,name,phone,email,password,status,module
                     photo:photo,
                     userId:user?.id,
                     createId:req?.user?.id
-            },{transaction})           
-            await transaction.commit(); 
-            return manager;
-            
-        } catch (error) {
-            if(transaction) {
-                await transaction.rollback();
-                Error(req,res,error.message,500)
+                },{transaction})
+
+                await transaction.commit(); 
+                return manager;
+
+            } catch (error) {
+                console.log(error);                
+                if(transaction) {
+                    await transaction.rollback();
+                    Error(req,res,error.message,500)
+                }
             }
-        }
+            
+
 
 }
 
@@ -93,6 +95,13 @@ const getManagers=async (offset=0,limit=10,page=1)=>{
 }
 
 
+const getManagersList=async ()=>{
+    // where:{deletedAt:null},
+    const response=await Manager.findAll({attributes:['id',['name','label']]});
+    console.log(response)
+    return response;
+}
+
 const getManager=async(userId)=>{
     const user=await User.findOne({where:{id:userId},include:{model:Manager}});
     return user;
@@ -100,15 +109,9 @@ const getManager=async(userId)=>{
 
 
 const deleteManager=async(userId)=>{
-    console.log(userId)
     const user=await User.findOne({where:{id:userId}});
-    console.log(user)
     await user.destroy();
-    // const manager=await Manager.findOne({where:{userId:userId}});
-    // await manager.destroy();
-
-    console.log(user)
     return user;
 }
 
-module.exports={createManager,editManager,getManagers,getManager,deleteManager};
+module.exports={createManager,editManager,getManagers,getManager,deleteManager,getManagersList};

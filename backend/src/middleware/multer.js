@@ -1,8 +1,9 @@
 const multer=require('multer');
 
 const imageFilter = function(req, file, cb) {
-    const allowedExtensions = ['.png', '.jpg','.jpeg'];
+    const allowedExtensions = ['.png', '.jpg','.jpeg','.PNG'];
     const fileExtension = file.originalname.slice(-4);
+    console.log(fileExtension)
     if (file.mimetype.startsWith('image/') && allowedExtensions.includes(fileExtension)) {
       cb(null, true);
     } else {

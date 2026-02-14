@@ -30,8 +30,6 @@ const Form = () => {
       password:''
    }) 
 
-   console.log(cookies)
-
    const dataHandler=(e)=>{
       const name=e.target.name;
       const value=e.target.value;
@@ -43,6 +41,7 @@ const Form = () => {
    const submitHandler=()=>{
       dispatch(LoginThunk(data,navigate,setCookie))
    }
+
    return (<div className='ml-[10%] mt-[12%] w-[70%]'>
      <div>
         <h1 className='text-login-heading'>Hello!</h1>

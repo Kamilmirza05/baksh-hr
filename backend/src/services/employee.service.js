@@ -11,6 +11,12 @@ const User = require("../models/user");
 var bcrypt = require('bcryptjs');
 const EmployeeBank = require("../models/empBank");
 const EmployeeCompany = require("../models/empCompany");
+const SalaryType = require("../models/salaryType");
+const Designation = require("../models/designation");
+const Department = require("../models/department");
+const { employeesDto } = require("../dto/dto");
+const { response } = require("express");
+const { Sequelize, Op } = require("sequelize");
 
 // const InsertRole=async (roleName)=>{
 //     const response=await Role.create({roleName:roleName});
@@ -19,24 +25,34 @@ const EmployeeCompany = require("../models/empCompany");
 
 
 const createEmployee=async (req,res,
-    {name,fatherName,dob,gender,phoneOne,phoneTwo,
+    {name,fatherName,dob,gender,contactOne,contactTwo,
     localAddress,nationality,permanentAddress,referenceOne,
+    bankId,
     referenceOnePhone,referenceTwo,referenceTwoPhone,martialStatus,
     comment,departmentId,designationId,dateofJoining,email,password,
     managerId,status,bloodGroup,emergencyContact,kinname,relation,
     kinPhone,holderName,accountNumber,bankName,branch,bankCode,
-    salaryType,salary}
+    salaryType,salary,employeeId}
     )=>{
-        var dateofbirth= new Date(dob);
-        console.log(dateofbirth)
+        console.log(name,fatherName,dob,gender,contactOne,contactTwo,
+            localAddress,nationality,permanentAddress,martialStatus,
+            departmentId,designationId,dateofJoining,email,password,
+            managerId,status,bloodGroup,emergencyContact,kinname,relation,
+            kinPhone,holderName,accountNumber,bankId,branch,salaryType,salary)
+        // var dateofbirth= new Date(dob);
+
         let modulejson={
-            employee:{view:true,add:true,edit:true,delete:true},
-            attendance:{view:true,add:true},
-            leave:{view:true,add:true,edit:true,delete:true},
-            payslip:{view:true,add:true,delete:true},
+            employee:{view:true,add:false,edit:false,delete:false},
+            attendance:{view:true,add:false},
+            leave:{view:true,add:true,edit:false,delete:false},
+            payslip:{view:true,add:false,delete:false},
             perfomance:{view:true,add:true},
             recruitment:{view:true,add:true},
-            daily:{work:true,notification:true,quote:true}
+            loan:{view:true,add:true},
+            reimbursement:{view:true,add:true,edit:false,delete:false},
+            daily:{work:true,notification:true,quote:true},
+            holidays:{view:true,add:false,edit:false,delete:false},
+            setup:{deparment:false,setting:false}
         }
 
         const role=await Role.findOne({where:{roleName:'employee'}})
@@ -56,22 +72,19 @@ const createEmployee=async (req,res,
 
 
         const employee=await Employee.create({
+            id:employeeId,
             name,
+            password,
             email:email,
             fatherName,
-            dob:dateofbirth,
+            dob:dob,
             gender,
-            phoneOne,
-            phoneTwo,
+            contactOne,
+            contactTwo,
             localAddress,
             nationality,
             permanentAddress,
-            referenceOne,
-            referenceOnePhone,
-            referenceTwo,
-            referenceTwoPhone,
             martialStatus,
-            comment,
             bloodGroup,
             emergencyContact,
             kinname,
@@ -86,19 +99,18 @@ const createEmployee=async (req,res,
             userId:user.id,
             createId:req.user.id,
         })
+        // 
 
         const employeeBank=await EmployeeBank.create({
             holderName,
             accountNumber,
-            bankName,
+            bankId:bankId,
             branch,
-            bankCode,
             salaryType,
             salary,
             employeeId:employee.id,
         })
 
-        console.log(dateofJoining)
         const employeeCompany=await EmployeeCompany.create({
             managerId:managerId,
             dateofJoining,
@@ -111,10 +123,14 @@ const createEmployee=async (req,res,
         return employeeCompany;
 }
 
+const getEmployee=async (employeeId)=>{
 
+    const employee= await Employee.findOne({where:{id:employeeId},include:[{model:User},{model:EmployeeBank},{model:EmployeeCompany}]})
+    return employee;
+}
 
 const editEmployee=async (req,res,
-    {name,fatherName,dob,gender,phoneOne,phoneTwo,
+    {name,fatherName,dob,gender,contactOne,contactTwo,
     localAddress,nationality,permanentAddress,referenceOne,
     referenceOnePhone,referenceTwo,referenceTwoPhone,martialStatus,
     comment,departmentId,designationId,dateofJoining,email,password,
@@ -131,8 +147,8 @@ const editEmployee=async (req,res,
             employee.fatherName=fatherName;
             employee.dob=new Date(dob);
             employee.gender=gender;
-            employee.phoneOne=phoneOne;
-            employee.phoneTwo=phoneTwo;
+            employee.contactOne=contactOne;
+            employee.contactTwo=contactTwo;
             employee.localAddress=localAddress;
             employee.nationality=nationality;
             employee.permanentAddress=permanentAddress;
@@ -147,6 +163,7 @@ const editEmployee=async (req,res,
             employee.kinname=kinname;
             employee.relation=relation;
             employee.kinPhone=kinPhone;
+            employee.password=password;
             if(req?.file){
                 employee.profilePhoto=req.file;
             }
@@ -166,6 +183,7 @@ const editEmployee=async (req,res,
         console.log(user)
         user.name=name;
         user.email=email;
+        user.status=status;
         if(user.password!==password){
             const salt = await bcrypt.genSalt(10);
             var hash = await bcrypt.hash(password, salt);
@@ -206,4 +224,36 @@ const editEmployee=async (req,res,
         return employeeCompany.save();
 }
 
-module.exports={createEmployee,editEmployee};
+const salaryType=async ()=>{
+    const salaries=await SalaryType.findAll({
+        attributes:['type']
+    });
+    return salaries;
+}
+
+const getEmployees=async ()=>{
+    let response=await Employee.findAll({include:[{model:User,attributes:['status']},{model:EmployeeCompany,attributes:['departmentId','designationId'],include:[{model:Designation,attributes:['designation']},{model:Department,attributes:['department']}]}],attributes:['name','email','id','profilePhoto']});
+    const employees=response.map((data)=>{
+        return {id:data.id,name:data?.name,email:data?.email,profile:data?.profilePhoto?.filename,status:data?.User?.status,department:data?.employee_company?.department?.department,designation:data?.employee_company?.designation?.designation}
+    })
+    return employees;
+}
+
+const searchEmployees=async (search)=>{
+    let response=await 
+        Employee.findAll({
+        where:{
+            [Op.or]: [
+                {name: {[Op.like]:"%"+search+"%"}},
+                {email:{[Op.like]:"%"+search+"%"}},
+              ]
+        },
+        include:[{model:User,attributes:['status']},{model:EmployeeCompany,attributes:['departmentId','designationId'],include:[{model:Designation,attributes:['designation']},{model:Department,attributes:['department']}]}],attributes:['name','email','id','profilePhoto']});
+
+    const employees=response.map((data)=>{
+        return {id:data.id,name:data?.name,email:data?.email,profile:data?.profilePhoto?.filename,status:data?.User?.status,department:data?.employee_company?.department?.department,designation:data?.employee_company?.designation?.designation}
+    })
+    return employees;
+}
+
+module.exports={createEmployee,editEmployee,salaryType,getEmployee,getEmployees,searchEmployees};

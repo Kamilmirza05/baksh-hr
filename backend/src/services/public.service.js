@@ -1,7 +1,7 @@
 const {Op} =require('sequelize')
 const User=require('../models/user');
 const bcrypt=require('bcryptjs');
-const Permission = require('../models/permission');
+const Bank = require('../models/bank');
 const { LoginDto } = require('../dto/dto');
 const jwt=require('jsonwebtoken')
 
@@ -23,4 +23,13 @@ const Login=async(req,res,email,password)=>{
         return {data,token};
 }
 
-module.exports={Login};
+
+const getBanks=async (req,res,next)=>{
+    const response=await Bank.findAll({
+        attributes: ['id', ['bankName', 'label']] ,       
+    })
+
+    return response;
+}
+
+module.exports={Login,getBanks};

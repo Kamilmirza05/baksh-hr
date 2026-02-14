@@ -4,8 +4,10 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { makeStyles } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import { Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import Dropdown from '../../images/employee/drop.svg';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -43,11 +45,53 @@ const useStyles=makeStyles({
 
   },
   root: {
+
+      '&.Mui-focusVisible':{
+        borderColor: '#C49A50',
+
+      },
+      '&.Mui-selected':{
+        borderColor: '#C49A50',
+      },
+      '&:hover fieldset': {
+        borderColor: '#C49A50',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#C49A50',
+      },
+
+     '& .css-10q54uo-MuiSelect-icon':{
+      top:'0.3rem',
+      },
+      '& .css-3qbkez-MuiSelect-icon':{
+        top:'0.3rem',
+      },
+      height:'42px',
+      '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: '#E1E1E1',
+          },
+          '&:hover fieldset': {
+            borderColor: '#868B90',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: '#C49A50',
+          },
+      },
       [`& fieldset`]: {
           border: '1px solid #E1E1E1',
         borderRadius: "10px !important",
       },
       width:'100%'
+  },
+  select:{
+    '& .MuiSelect-icon': {
+      // top: 'calc(50% - 12px)',
+      // position: 'absolute',
+      // background: 'blue',
+      // borderRadius: '8px',
+  
+    },
   },
   flexRow:{
       display:'flex',
@@ -62,7 +106,13 @@ const useStyles=makeStyles({
     letterSpacing: '-0.02em',
     textAlign: 'left',
     color:'#868B90'
-},
+  },
+  dropIconContainer:{
+    background: '#FCFCFC',
+    borderRadius: '8px',
+    width:'32px',
+    height:'32px'
+  }
 })
 
 function getStyles(name,personName, theme) {
@@ -74,44 +124,73 @@ function getStyles(name,personName, theme) {
   };
 }
 
-export default function SelectUi({title,data}) {
+export default function SelectUi({title,data=[],handleChange,name,value,error,helperText,handleBlur,placeholder}) {
   const classes=useStyles();
-
+  const dispatch=useDispatch();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
+  // const handleChange = (event,child) => {
+  //   const {
+  //     target: { value },
+  //   } = event; 
+  //     const id=child.props.id;
+  //     console.log(id)
 
+
+  //   setPersonName(
+  //     // On autofill we get a stringified value.
+  //     typeof value === 'string' ? value.split(',') : value,
+  //   );
+  // };
+  console.log(value)
   return (
-          
       <FormControl sx={{ width: '100%'}} >
         <Typography component='h4' className={classes.label}>
             {title}
         </Typography>
         <Select
-          className={classes.root}
+          className={`${classes.root} ${classes.select}`}
           displayEmpty
-          value={personName}
+          name={name}
+          value={value}
+          IconComponent={(props)=>(
+            <Box {...props} component='div' style={{      
+                  width: '32px',
+                  height: '32px',
+                  display:'flex',
+                  justifyContent:'center',
+                  alignItems:'center',
+                  background: '#FCFCFC',
+                  borderRadius: '8px',
+            }}>
+             <img    
+             style={{
+              pointerEvents: 'none',
+              height:'6px',
+              widht:'12px',
+             }}
+             src={Dropdown}
+
+             />
+            </Box>
+          )}
+          error={error}
+          onBlur={handleBlur}
           onChange={handleChange}
           input={<OutlinedInput />}
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}
+          placeholder={placeholder}
         >
-           {data.map((name) => (
+          {data.map((list,id) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
+              key={id}
+              value={list.id}
+              style={{textTransform: 'capitalize'}}
+              // style={getStyles(list.label, personName, theme)}
             >
-              {name}
+              {list.label}
             </MenuItem>
           ))}
         </Select>

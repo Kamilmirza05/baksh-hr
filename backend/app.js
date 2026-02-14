@@ -1,17 +1,15 @@
 const express=require('express');
-const app=express();
-const db=require('./src/untils/db');
 const sequelize = require('./src/untils/db');
 const User=require('./src/models/user');
 const Employee = require('./src/models/employee');
 const Role = require('./src/models/role');
 const Permission = require('./src/models/permission');
-const logger=require('./src/logs');
 const bodyParser=require('body-parser');
 const Manager = require('./src/models/manager');
 // .evn file get
 require('dotenv').config();
-console.log('hii')
+
+const app=express();
 
 // Routes
 const adminRoutes=require('./src/routes/adminRoutes');
@@ -20,19 +18,32 @@ const Department = require('./src/models/department');
 const Designation = require('./src/models/designation');
 const EmployeeCompany = require('./src/models/empCompany');
 const EmployeeBank = require('./src/models/empBank');
+const Bank=require('./src/models/bank');
+const cors=require('cors')
+const path=require('path')
 
 const version1='v1';
-
+const options={
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods':'GET, POST, PUT, DELETE'
+}
+//Middlewares
+app.use(express.static(path.join(__dirname,'./frontend/build')));
+app.use(cors(options))
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
-
+// app.use(express.static(path.join(__dirname,"../frontend/build")))
 // app.use(express.urlencoded())
+app.use('/',express.static(path.join(__dirname,'uploads', 'employees')))
 
 
 
 app.use('/api/admin',adminRoutes)
 app.use('/api',Api)
 
+app.use("*",function(req,res){
+  res.sendFile(path.join(__dirname,'../frontend/build'))
+})
 
 // RelationShips Role and Permissions
 Role.hasMany(User,
@@ -84,9 +95,13 @@ EmployeeBank.belongsTo(Employee)
 User.hasMany(Employee,{foreignKey:'createId'})
 User.belongsTo(Employee,{foreignKey:'createId'})
 
+
+Bank.hasMany(EmployeeBank,{foreignKey:'bankId'})
+EmployeeBank.hasMany(Bank,{foreignKey:'bankId'})
+
 // My sql database create
 sequelize
-.sync({})
+.sync({alter:true})
 .then(() => {
   console.log('Models synchronized successfully.');
 })

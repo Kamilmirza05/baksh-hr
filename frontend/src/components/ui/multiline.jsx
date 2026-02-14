@@ -1,6 +1,7 @@
 import { Box, FormControl, OutlinedInput, Typography } from '@mui/material'
 import React from 'react'
 import { makeStyles } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 
 
 const useStyles=makeStyles({
@@ -26,16 +27,36 @@ const useStyles=makeStyles({
     width:'100%'
 },
 })
-const MultiLineText = ({label,placeholder}) => {
+const MultiLineText = (props) => {
     const classOwn=useStyles();
+    const dispatch=useDispatch();
+    const {
+      placeholder,
+      title,
+      name,
+      label,
+      helperText, 
+      handleChange, 
+      value, 
+      error,
+      handleBlur
+  }=props
+
+
   return (
     <FormControl >
       <Typography component='h4' className={classOwn.label}>{label}</Typography>
-      <OutlinedInput placeholder={placeholder} 
+      <OutlinedInput 
+              placeholder={placeholder} 
               multiline
               rows={4}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={value}
               className={classOwn.root}
-              defaultValue=""
+              name={name}
+              helperText={helperText}  
+              error={error}
       />
     </FormControl>
   )
